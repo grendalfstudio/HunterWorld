@@ -1,10 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Audio;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class AudioManager : MonoBehaviour
 {
-    [SerializeField] private AudioSource effectsSource;
+    [SerializeField] private AudioEffectSource effectSource;
     [SerializeField] private AudioSource musicSource;
 
     [SerializeField] private float lowPitchRange = .95f;
@@ -29,8 +32,8 @@ public class AudioManager : MonoBehaviour
     // Play a single clip through the sound effects source.
     public void Play(AudioClip clip)
     {
-        effectsSource.clip = clip;
-        effectsSource.Play();
+        effectSource.source.clip = clip;
+        Instantiate(effectSource.prefab);
     }
 
     // Play a single clip through the music source.
@@ -45,8 +48,13 @@ public class AudioManager : MonoBehaviour
         int randomIndex = Random.Range(0, clips.Length);
         float randomPitch = Random.Range(lowPitchRange, highPitchRange);
 
-        effectsSource.pitch = randomPitch;
-        effectsSource.clip = clips[randomIndex];
-        effectsSource.Play();
+        effectSource.source.pitch = randomPitch;
+        effectSource.source.clip = clips[randomIndex];
+        Instantiate(effectSource.prefab);
+    }
+
+    public void OnDestroy()
+    {
+        Debug.Log("I am bad guy");
     }
 }
