@@ -584,6 +584,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1796846750}
+  - component: {fileID: 1796846751}
   m_Layer: 0
   m_Name: Creatures
   m_TagString: Untagged
@@ -607,3 +608,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1796846751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1796846749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7ce267f5976b16419b5513099deec52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wolfPrefab: {fileID: 5852199462231055487, guid: 974bdd6af6633bc4180bacfc7fbd2d35, type: 3}
+  harePrefab: {fileID: 2580351872456862596, guid: b918443db535002498d367bbe8dfaed4, type: 3}
+  deerPrefab: {fileID: 5359036517187038900, guid: ffd51814004590d42a16d89c8408cde1, type: 3}
+  deerGroupPrefab: {fileID: 6336438628357421169, guid: 5727425ee1a5af14a8cef85712096c4a, type: 3}
+  animalsParent: {fileID: 394045223}
+  fieldSizeX: 30
+  fieldSizeY: 30
+  deersRadius: 3

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1493484060150698904}
   - component: {fileID: 6959709938135051672}
   - component: {fileID: 8426110275634050247}
+  - component: {fileID: 8415733708786569740}
   m_Layer: 0
   m_Name: Hunter
   m_TagString: Player
@@ -99,6 +100,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
+--- !u!114 &8415733708786569740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386441872576409236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd8db21e3a8dcfa46a6b0fb4280407f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aim: {fileID: 652253103408903941}
 --- !u!1 &652253103408903941
 GameObject:
   m_ObjectHideFlags: 0
