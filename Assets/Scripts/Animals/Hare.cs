@@ -30,6 +30,9 @@ namespace Assets.Scripts.Animals
         [SerializeField, Range(1, 75)]
         private int _rotateAngle = 10;
 
+        [SerializeField, Range(1, 10)]
+        private int _wallDetectionDistance = 2;
+
         private int _angle;
     
         public float VelocityLimit => _velocityLimit;
@@ -50,6 +53,8 @@ namespace Assets.Scripts.Animals
         private void ApplySteeringForce()
         {
             var desiredVelocity = GetDesiredVelocity();
+            if (CheckWalls(desiredVelocity))
+                desiredVelocity = Quaternion.Euler(0, 0, 90) * desiredVelocity;
             var steeringForce = desiredVelocity - _velocity;
             ApplyForce(steeringForce.normalized * _steeringForceLimit);
         }
@@ -61,10 +66,11 @@ namespace Assets.Scripts.Animals
                 _angle += _rotateAngle;
             else if (rndValue < 1)
                 _angle -= _rotateAngle;
-            
-            var futurePosition = transform.position + _velocity.normalized * _circleDistance;
-            var vector = new Vector3(Mathf.Cos(_angle * Mathf.Deg2Rad), 0, Mathf.Sin(_angle * Mathf.Deg2Rad));
-            return (futurePosition + vector - transform.position).normalized * _velocityLimit;
+
+            var position = transform.position;
+            var futurePosition = position + _velocity.normalized * _circleDistance;
+            var vector = new Vector3(Mathf.Cos(_angle * Mathf.Deg2Rad), Mathf.Sin(_angle * Mathf.Deg2Rad), 0);
+            return (futurePosition + vector - position).normalized * _velocityLimit;
         }
 
         private void ApplyForces()
@@ -77,8 +83,19 @@ namespace Assets.Scripts.Animals
                 return;
             }
 
-            transform.position = _velocity * Time.deltaTime;
+            transform.position += _velocity * Time.deltaTime;
             _acceleration = Vector3.zero;
+        }
+
+        private bool CheckWalls(Vector2 direction)
+        {
+            RaycastHit2D hit = Physics2D.Raycast(gameObject.transform.position,direction,_wallDetectionDistance);
+            if (hit.transform == null || !hit.transform.gameObject.tag.Equals("Wall")) 
+                return false;
+            
+            Debug.Log($"Wall detected by {name}");
+            return true;
+
         }
     }
 }
