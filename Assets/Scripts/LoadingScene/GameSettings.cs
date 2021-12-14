@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using UnityEngine;
 
-namespace LoadingScene
+namespace Assets.Scripts.LoadingScene
 {
     [Serializable]
     public class GameSettings
@@ -16,7 +16,9 @@ namespace LoadingScene
 
         public int DeersGroupsCount { get; set; } = 0;
 
-        public Tuple<int, int> DeersOnGroupCount { get; set; } = new Tuple<int, int>(0, 0);
+        public int DeersOnGroupMinCount { get; set; } = 0;
+        
+        public int DeersOnGroupMaxCount { get; set; } = 0;
 
         public int WolfsCount { get; set; } = 0;
 

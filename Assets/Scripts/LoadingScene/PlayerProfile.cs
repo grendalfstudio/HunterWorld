@@ -1,9 +1,9 @@
 ﻿using System;
-using Audio;
+using Assets.Scripts.Audio;
 using Newtonsoft.Json;
 using UnityEngine;
 
-namespace LoadingScene
+namespace Assets.Scripts.LoadingScene
 {
     public class PlayerProfile : MonoBehaviour
     {

@@ -1,13 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using LoadingScene;
+using Assets.Scripts.LoadingScene;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace MainMenu
+namespace Assets.Scripts.MainMenu
 {
     public class MainMenu : MonoBehaviour
     {
@@ -40,8 +40,8 @@ namespace MainMenu
             wolfsIF.text = PlayerProfile.Instance.GameData.WolfsCount.ToString();
             haresIF.text = PlayerProfile.Instance.GameData.HaresCount.ToString();
             deerGroupsIF.text = PlayerProfile.Instance.GameData.DeersGroupsCount.ToString();
-            deerPerGroupsMinIF.text = PlayerProfile.Instance.GameData.DeersOnGroupCount.Item1.ToString();
-            deerPerGroupsMaxIF.text = PlayerProfile.Instance.GameData.DeersOnGroupCount.Item2.ToString();
+            deerPerGroupsMinIF.text = PlayerProfile.Instance.GameData.DeersOnGroupMinCount.ToString();
+            deerPerGroupsMaxIF.text = PlayerProfile.Instance.GameData.DeersOnGroupMaxCount.ToString();
         }
 
         private void AddListeners()
@@ -99,21 +99,17 @@ namespace MainMenu
         
         private void OnDeerOnGroupsMinChanged(string newCount)
         {
-            var count = new Tuple<int, int>(Convert.ToInt32(newCount), 
-                PlayerProfile.Instance.GameData.DeersOnGroupCount.Item2);
-            PlayerProfile.Instance.GameData.DeersOnGroupCount = count;
+            PlayerProfile.Instance.GameData.DeersOnGroupMinCount = Convert.ToInt32(newCount);
         }
         
         private void OnDeerOnGroupsMaxChanged(string newCount)
         {
-            var count = new Tuple<int, int>(PlayerProfile.Instance.GameData.DeersOnGroupCount.Item1, 
-                Convert.ToInt32(newCount));
-            PlayerProfile.Instance.GameData.DeersOnGroupCount = count;
+            PlayerProfile.Instance.GameData.DeersOnGroupMaxCount = Convert.ToInt32(newCount);
         }
         
         private void OnDeerGroupsMinUpdate(string newCount)
         {
-            if (Convert.ToInt32(newCount) < PlayerProfile.Instance.GameData.DeersOnGroupCount.Item1)
+            if (newCount != "" && Convert.ToInt32(newCount) < PlayerProfile.Instance.GameData.DeersOnGroupMinCount)
             {
                 OnDeerOnGroupsMinChanged(newCount);
                 deerPerGroupsMinIF.text = newCount;
@@ -122,7 +118,7 @@ namespace MainMenu
         
         private void OnDeerGroupsMaxUpdate(string newCount)
         {
-            if (Convert.ToInt32(newCount) > PlayerProfile.Instance.GameData.DeersOnGroupCount.Item2)
+            if (newCount != "" && Convert.ToInt32(newCount) > PlayerProfile.Instance.GameData.DeersOnGroupMaxCount)
             {
                 OnDeerOnGroupsMaxChanged(newCount);
                 deerPerGroupsMaxIF.text = newCount;

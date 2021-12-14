@@ -1,11 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Audio;
+using Assets.Scripts.Audio;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Audio
+namespace Assets.Scripts.Audio
 {
     public class AudioManager : MonoBehaviour
     {

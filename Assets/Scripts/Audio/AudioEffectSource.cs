@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Audio
+namespace Assets.Scripts.Audio
 {
     public class AudioEffectSource : MonoBehaviour
     {
