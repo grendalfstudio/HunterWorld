@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Game;
 using Assets.Scripts.LoadingScene;
 using UnityEngine;
 
@@ -8,13 +9,16 @@ namespace Assets.Scripts.Player
     public class PlayerShooting : MonoBehaviour
     {
         [SerializeField] private GameObject aim;
+        [SerializeField] private GameObject gun;
 
-        private int bulletsCount;
+        [SerializeField] private AnimalsController controller;
+
+        public int BulletsCount { get; private set; }
         
         // Start is called before the first frame update
         void Awake()
         {
-            bulletsCount = PlayerProfile.Instance.GameData.BulletsCount;
+            BulletsCount = PlayerProfile.Instance.GameData.BulletsCount;
         }
 
         // Update is called once per frame
@@ -28,17 +32,18 @@ namespace Assets.Scripts.Player
 
         private void Shoot()
         {
-            if (bulletsCount <= 0)
+            if (BulletsCount <= 0)
             {
                 return;
             }
+
+            BulletsCount--;
             
-            var direction = aim.transform.position - transform.position;
-            RaycastHit2D hit = Physics2D.Raycast(gameObject.transform.position,direction,5);
+            var direction = aim.transform.position - gun.transform.position;
+            RaycastHit2D hit = Physics2D.Raycast(gun.transform.position,direction,5);
             if (hit.transform != null) {
-                Debug.Log ("You Hit: " + hit.transform.parent.gameObject.name);
+                controller.KillTheAnimal(hit.transform.gameObject);
             }
-            
         }
     }
 }
