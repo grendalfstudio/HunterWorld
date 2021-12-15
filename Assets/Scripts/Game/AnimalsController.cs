@@ -32,7 +32,7 @@ namespace Assets.Scripts.Game
 
         public void KillTheAnimal(GameObject animal)
         {
-            if (!animals.Contains(animal.transform.parent.gameObject))
+            if (!animals.Contains(animal))
             {
                 return;
             }
@@ -50,8 +50,8 @@ namespace Assets.Scripts.Game
                     break;
             }
 
-            animals.Remove(animal.transform.parent.gameObject);
-            Destroy(animal.transform.parent.gameObject);
+            animals.Remove(animal);
+            Destroy(animal);
         }
 
         private void SpawnAnimals()

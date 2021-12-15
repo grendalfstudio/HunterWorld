@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6959709938135051672}
   - component: {fileID: 8426110275634050247}
   - component: {fileID: 8415733708786569740}
-  - component: {fileID: 145101112903687539}
   m_Layer: 0
   m_Name: Hunter
   m_TagString: Player
@@ -117,19 +116,6 @@ MonoBehaviour:
   aim: {fileID: 652253103408903941}
   gun: {fileID: 5906198598549774496}
   controller: {fileID: 0}
---- !u!114 &145101112903687539
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 386441872576409236}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b7938cceb843b344bb8108ed8866993, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  body: {fileID: 2947160195470194434}
 --- !u!1 &652253103408903941
 GameObject:
   m_ObjectHideFlags: 0
@@ -304,6 +290,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8236500200407234340}
   - component: {fileID: 2947160195470194434}
+  - component: {fileID: 9132551358973032485}
+  - component: {fileID: 470946757718833989}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -341,6 +329,40 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.4
+--- !u!50 &9132551358973032485
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2621946563311143533}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 1
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 0
+--- !u!114 &470946757718833989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2621946563311143533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b7938cceb843b344bb8108ed8866993, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  body: {fileID: 2947160195470194434}
 --- !u!1 &5906198598549774496
 GameObject:
   m_ObjectHideFlags: 0

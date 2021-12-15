@@ -11,11 +11,11 @@ namespace Assets.Scripts.Player
     {
         [SerializeField] private Collider2D body;
 
-        private void OnTriggerEnter(Collider other)
+        private void OnTriggerEnter2D(Collider2D col)
         {
-            if (other.gameObject.tag.Equals("Wolf"))
+            if (col.CompareTag("Wolf"))
             {
-                Destroy(gameObject);
+                Destroy(gameObject.transform.parent.gameObject);
             }
         }
     }

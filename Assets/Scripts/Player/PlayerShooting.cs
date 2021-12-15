@@ -42,7 +42,7 @@ namespace Assets.Scripts.Player
             var direction = aim.transform.position - gun.transform.position;
             RaycastHit2D hit = Physics2D.Raycast(gun.transform.position,direction,5);
             if (hit.transform != null) {
-                controller.KillTheAnimal(hit.transform.gameObject);
+                controller.KillTheAnimal(hit.transform.parent.gameObject);
             }
         }
     }
