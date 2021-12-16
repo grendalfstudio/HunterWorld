@@ -16,12 +16,6 @@ namespace Assets.Scripts.Game
         {
             AudioManager.Instance.PlayMusic(gameMusic[new Random().Next(0, gameMusic.Count - 1)]);
         }
-
-        // Update is called once per frame
-        void Update()
-        {
-        
-        }
     }
 }
 

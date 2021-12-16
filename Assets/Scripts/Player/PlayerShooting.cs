@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Game;
@@ -10,10 +11,12 @@ namespace Assets.Scripts.Player
     {
         [SerializeField] private GameObject aim;
         [SerializeField] private GameObject gun;
+        [SerializeField] private GameObject hitPrefab;
 
         [SerializeField] private AnimalsController controller;
 
         public int BulletsCount { get; private set; }
+        public Action OnBulletsCountChanged;
         
         // Start is called before the first frame update
         void Awake()
@@ -36,14 +39,23 @@ namespace Assets.Scripts.Player
             {
                 return;
             }
-
-            BulletsCount--;
             
+            BulletsCount--;
+            OnBulletsCountChanged?.Invoke();
+
             var direction = aim.transform.position - gun.transform.position;
-            RaycastHit2D hit = Physics2D.Raycast(gun.transform.position,direction,5);
-            if (hit.transform != null) {
+            GameObject hitObj;
+            RaycastHit2D hit = Physics2D.Raycast(gun.transform.position,direction,direction.magnitude);
+            if (hit.transform != null && hit.transform.root.tag.Equals("Creatures")) {
+                hitObj = Instantiate(hitPrefab, hit.transform.position, Quaternion.identity);
                 controller.KillTheAnimal(hit.transform.parent.gameObject);
             }
+            else
+            {
+                hitObj = Instantiate(hitPrefab, aim.transform.position, Quaternion.identity);
+            }
+            
+            Destroy(hitObj, 0.1f);
         }
     }
 }

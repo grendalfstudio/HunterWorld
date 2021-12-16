@@ -13,17 +13,19 @@ namespace Assets.Scripts.Game
         [SerializeField] private int fieldSizeY;
         [SerializeField] private int deersRadius;
         [SerializeField] private AnimalsSpawner spawner;
+        [SerializeField] private List<GameObject> deadPrefabs;
 
         public int HaresCount { get; set; }
         public int WolfsCount { get; set; }
         public int DeerGroupsCount { get; set; }
         public int DeersCount { get; set; }
+        public Action OnAnimalCountsUpdated;
 
         private List<GameObject> animals = new List<GameObject>();
 
         private GameSettings Settings => PlayerProfile.Instance.GameData;
         private Random rnd;
-        
+
         void Awake()
         {
             rnd = new Random();
@@ -36,20 +38,25 @@ namespace Assets.Scripts.Game
             {
                 return;
             }
-            
+
             switch (animal.tag)
             {
                 case "Hare":
                     HaresCount--;
-                    break;
-                case "Wolf":
-                    WolfsCount--;
+                    Instantiate(deadPrefabs[0], animal.transform.position, animal.transform.rotation);
                     break;
                 case "Deer":
                     DeersCount--;
+                    Instantiate(deadPrefabs[1], animal.transform.position, animal.transform.rotation);
+                    break;
+                case "Wolf":
+                    WolfsCount--;
+                    Instantiate(deadPrefabs[2], animal.transform.position, animal.transform.rotation);
                     break;
             }
-
+            
+            OnAnimalCountsUpdated?.Invoke();
+            
             animals.Remove(animal);
             Destroy(animal);
         }

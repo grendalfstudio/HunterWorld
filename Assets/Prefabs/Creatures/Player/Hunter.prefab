@@ -76,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1594845781
   m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: bb9dc33af8cec2a499646621219565dc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -115,6 +115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aim: {fileID: 652253103408903941}
   gun: {fileID: 5906198598549774496}
+  hitPrefab: {fileID: 6214092962502445127, guid: 21e5d189cccd4aa4fab355b6934eb758, type: 3}
   controller: {fileID: 0}
 --- !u!1 &652253103408903941
 GameObject:
@@ -362,7 +363,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b7938cceb843b344bb8108ed8866993, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  body: {fileID: 2947160195470194434}
 --- !u!1 &5906198598549774496
 GameObject:
   m_ObjectHideFlags: 0
@@ -433,7 +433,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1594845781
   m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 24726326f0d24dc41875ec34f94e95b2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

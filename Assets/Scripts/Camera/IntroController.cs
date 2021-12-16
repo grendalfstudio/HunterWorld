@@ -10,12 +10,20 @@ namespace Assets.Scripts.Camera
     public class IntroController : MonoBehaviour
     {
         [SerializeField] private VideoPlayer player;
-        [SerializeField] private GameObject menu;
         [SerializeField] private AudioClip menuMusic;
-    
+        [SerializeField] private GameObject menu;
         // Start is called before the first frame update
         void Start()
         {
+            if (!PlayerPrefs.HasKey("PlayIntro") || PlayerPrefs.GetInt("PlayIntro") != 0)
+            {
+                PlayerPrefs.SetInt("PlayIntro", 0);
+                PlayerPrefs.Save();
+                Destroy(gameObject);
+                EnableMenu();
+                return;
+            }
+            
             Invoke(nameof(EnableMenu), (float)player.length);
         }
 
@@ -31,8 +39,9 @@ namespace Assets.Scripts.Camera
 
         private void EnableMenu()
         {
-            menu.SetActive(true);
             AudioManager.Instance.PlayMusic(menuMusic);
+            menu.SetActive(true);
+            Destroy(gameObject);
         }
     }
 }
