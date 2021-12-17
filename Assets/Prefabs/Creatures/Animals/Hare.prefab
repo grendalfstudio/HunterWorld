@@ -84,29 +84,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
-<<<<<<< HEAD
---- !u!114 &3204847430128996828
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2580351872456862596}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b016e831bb28af4a92d8614c1d462f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mass: 1
-  wanderVelocityLimit: 1
-  runVelocityLimit: 2
-  steeringForceLimit: 1
-  wanderPointDistance: 2
-  circleRadius: 1
-  wanderRotateAngle: 10
-  viewRadius: 2
-=======
->>>>>>> master
 --- !u!1 &3533963636616140502
 GameObject:
   m_ObjectHideFlags: 0
@@ -152,9 +129,5 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-<<<<<<< HEAD
-  m_Size: {x: 1.6, y: 2}
-=======
   m_Size: {x: 1.55, y: 2.1}
->>>>>>> master
   m_Direction: 0

@@ -7,11 +7,8 @@ TagManager:
   - Wolf
   - Hare
   - Deer
-<<<<<<< HEAD
-  - Obstacle
-=======
->>>>>>> master
   - Creatures
+  - Obstacle
   layers:
   - Default
   - TransparentFX
