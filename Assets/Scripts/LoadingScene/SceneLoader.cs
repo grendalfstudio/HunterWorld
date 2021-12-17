@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace LoadingScene
+namespace Assets.Scripts.LoadingScene
 {
     public class SceneLoader : MonoBehaviour
     {
@@ -21,14 +21,13 @@ namespace LoadingScene
 
             while (!operation.isDone)
             {
-                if (slider == null)
+                if (slider != null)
                 {
-                    yield return null;
+                    var progress = Mathf.Clamp01(operation.progress / 0.9f);
+            
+                    slider.value = progress;
                 }
-                var progress = Mathf.Clamp01(operation.progress / 0.9f);
-            
-                slider.value = progress;
-            
+                
                 yield return null;
             }
         }

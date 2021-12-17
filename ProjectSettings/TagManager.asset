@@ -7,8 +7,11 @@ TagManager:
   - Wolf
   - Hare
   - Deer
-  - Wall
+<<<<<<< HEAD
   - Obstacle
+=======
+>>>>>>> master
+  - Creatures
   layers:
   - Default
   - TransparentFX
@@ -48,4 +51,7 @@ TagManager:
     locked: 0
   - name: Creatures
     uniqueID: 1594845781
+    locked: 0
+  - name: Hits
+    uniqueID: 3511541037
     locked: 0
