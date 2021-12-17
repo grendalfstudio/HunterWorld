@@ -8,8 +8,8 @@ public class AnimalsSpawner : MonoBehaviour
     [SerializeField] private GameObject harePrefab;
     [SerializeField] private GameObject deerPrefab;
     [SerializeField] private GameObject deerGroupPrefab;
+    
     // Start is called before the first frame update
-
     public GameObject SpawnHare(Vector3 position)
     {
         var newHare = Instantiate(harePrefab, position, Quaternion.identity, transform);

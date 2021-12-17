@@ -129,6 +129,7 @@ namespace Assets.Scripts.MainMenu
         {
             settingsPanel.SetActive(false);
             sceneLoader.gameObject.SetActive(true);
+            Cursor.visible = false;
             sceneLoader.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }

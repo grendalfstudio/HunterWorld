@@ -15,6 +15,7 @@ namespace Assets.Scripts.Camera
         // Start is called before the first frame update
         void Start()
         {
+            Cursor.visible = false;
             if (!PlayerPrefs.HasKey("PlayIntro") || PlayerPrefs.GetInt("PlayIntro") != 0)
             {
                 PlayerPrefs.SetInt("PlayIntro", 0);
@@ -41,6 +42,7 @@ namespace Assets.Scripts.Camera
         {
             AudioManager.Instance.PlayMusic(menuMusic);
             menu.SetActive(true);
+            Cursor.visible = true;
             Destroy(gameObject);
         }
     }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Audio;
 using Assets.Scripts.Game;
 using Assets.Scripts.LoadingScene;
 using UnityEngine;
@@ -12,6 +13,7 @@ namespace Assets.Scripts.Player
         [SerializeField] private GameObject aim;
         [SerializeField] private GameObject gun;
         [SerializeField] private GameObject hitPrefab;
+        [SerializeField] private AudioClip shootSound;
 
         [SerializeField] private AnimalsController controller;
 
@@ -42,6 +44,7 @@ namespace Assets.Scripts.Player
             
             BulletsCount--;
             OnBulletsCountChanged?.Invoke();
+            AudioManager.Instance.Play(shootSound);
 
             var direction = aim.transform.position - gun.transform.position;
             GameObject hitObj;
