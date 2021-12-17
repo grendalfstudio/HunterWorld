@@ -36,6 +36,9 @@ namespace Assets.Scripts.Animals
 
         [SerializeField, Range(1, 10)]
         private float viewRadius = 2;
+
+        [SerializeField]
+        private Collider2D collider2d;
     
         public float WanderVelocityLimit => wanderVelocityLimit;
 
@@ -48,6 +51,8 @@ namespace Assets.Scripts.Animals
         public int WanderRotateAngle => wanderRotateAngle;
 
         public float ViewRadius => viewRadius;
+
+        public Collider2D Collider2D => collider2d;
 
         protected void ApplySteeringForce()
         {
@@ -89,9 +94,9 @@ namespace Assets.Scripts.Animals
             {
                 var rotate = Quaternion.Euler(0, 0, angle);
                 vector = rotate * vector;
-                GetComponent<Collider2D>().enabled = false;
+                Collider2D.enabled = false;
                 var hit = Physics2D.Raycast(transform.position, vector, ViewRadius);
-                GetComponent<Collider2D>().enabled = true;
+                Collider2D.enabled = true;
                 Debug.DrawRay(transform.position, direction, Color.blue, 1);
                 if (hit.collider != null && hit.transform.gameObject.tag.Equals("Obstacle") && !raycastHits.Contains(hit.transform))
                 {
