@@ -9,6 +9,7 @@ TagManager:
   - Deer
   - Creatures
   - Obstacle
+  - StoryPoint
   layers:
   - Default
   - TransparentFX

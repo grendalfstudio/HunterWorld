@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.LoadingScene;
+using TMPro;
 using UnityEngine;
 
 namespace Assets.Scripts.Game
 {
     public class EndingTexts : MonoBehaviour
     {
-        [SerializeField] private List<GameObject> endingTexts;
+        [SerializeField] private TextMeshProUGUI textField;
 
         private int activeTextIndex = 0;
 
@@ -17,15 +19,10 @@ namespace Assets.Scripts.Game
 
         private void PlayNextText()
         {
-            if (activeTextIndex != 0)
-            {
-                endingTexts[activeTextIndex].SetActive(false);
-            }
-            
+            textField.text = PlayerProfile.Instance.GameTexts.Credits[activeTextIndex];
             activeTextIndex++;
-            endingTexts[activeTextIndex].SetActive(true);
             
-            if (activeTextIndex < endingTexts.Count - 1)
+            if (activeTextIndex < PlayerProfile.Instance.GameTexts.Credits.Count)
             {
                 PlayTexts();
             }

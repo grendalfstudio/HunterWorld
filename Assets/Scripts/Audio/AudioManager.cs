@@ -60,7 +60,7 @@ namespace Assets.Scripts.Audio
             Instantiate(effectSource.prefab);
         }
     
-        public void OnDestroy()
+        private void OnDestroy()
         {
             Debug.Log("I am bad guy");
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Assets.Scripts.Audio;
 using Newtonsoft.Json;
 using UnityEngine;
@@ -8,7 +9,9 @@ namespace Assets.Scripts.LoadingScene
     public class PlayerProfile : MonoBehaviour
     {
         private const string DataKey = "GameData";
+        private const string TextsPath = "Resourses/GameTexts.json";
         public GameSettings GameData { get; set; }
+        public GameTexts GameTexts { get; set; }
         
         public static PlayerProfile Instance = null;
         
@@ -24,6 +27,7 @@ namespace Assets.Scripts.LoadingScene
             }
 
             GameData = LoadData();
+            GameTexts = LoadTexts();
             DontDestroyOnLoad(gameObject);
         }
 
@@ -43,6 +47,14 @@ namespace Assets.Scripts.LoadingScene
 
             var data = PlayerPrefs.GetString(DataKey);
             return JsonConvert.DeserializeObject<GameSettings>(data);
+        }
+
+        public GameTexts LoadTexts()
+        {
+            var sourse=new StreamReader(Application.dataPath+"/" + TextsPath);
+            var fileContents=sourse.ReadToEnd();
+            sourse.Close();
+            return JsonConvert.DeserializeObject<GameTexts>(fileContents);
         }
 
         private void OnDestroy()
