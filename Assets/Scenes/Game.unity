@@ -348,19 +348,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7713218424813990107, guid: b918443db535002498d367bbe8dfaed4, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 7713218424813990107, guid: b918443db535002498d367bbe8dfaed4, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7713218424813990107, guid: b918443db535002498d367bbe8dfaed4, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7713218424813990107, guid: b918443db535002498d367bbe8dfaed4, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: -0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 7713218424813990107, guid: b918443db535002498d367bbe8dfaed4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -372,7 +372,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7713218424813990107, guid: b918443db535002498d367bbe8dfaed4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: -90
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b918443db535002498d367bbe8dfaed4, type: 3}
@@ -460,13 +460,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b016e831bb28af4a92d8614c1d462f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mass: 6
-  _velocityLimit: 1
-  _steeringForceLimit: 1
-  _circleDistance: 1
-  _circleRadius: 4
-  _rotateAngle: 15
-  _wallDetectionDistance: 2
+  mass: 1
+  wanderVelocityLimit: 1
+  runVelocityLimit: 2
+  steeringForceLimit: 1
+  wanderPointDistance: 2
+  circleRadius: 1
+  wanderRotateAngle: 10
+  viewRadius: 2
 --- !u!1 &2086805979
 GameObject:
   m_ObjectHideFlags: 0
@@ -531,6 +532,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1580175004616541231, guid: 8f8efc568823570499a5d433475044ac, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 1580175004616541231, guid: 8f8efc568823570499a5d433475044ac, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1846914653849296948, guid: 8f8efc568823570499a5d433475044ac, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -578,6 +587,26 @@ PrefabInstance:
     - target: {fileID: 1846914653849296949, guid: 8f8efc568823570499a5d433475044ac, type: 3}
       propertyPath: m_Name
       value: Walls
+      objectReference: {fileID: 0}
+    - target: {fileID: 3871701886063486832, guid: 8f8efc568823570499a5d433475044ac, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
+    - target: {fileID: 3871701886115064362, guid: 8f8efc568823570499a5d433475044ac, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
+    - target: {fileID: 3871701886888755396, guid: 8f8efc568823570499a5d433475044ac, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
+    - target: {fileID: 6312926530815239998, guid: 8f8efc568823570499a5d433475044ac, type: 3}
+      propertyPath: m_Name
+      value: Wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 6312926530815239998, guid: 8f8efc568823570499a5d433475044ac, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f8efc568823570499a5d433475044ac, type: 3}

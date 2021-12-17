@@ -1,46 +1,16 @@
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.Animals
 {
-    public class Hare : MonoBehaviour
+    public class Hare : Animal
     {
-        private const float Epsilon = 0.01f;
-    
-        private Vector3 _velocity;
+        private DesiredVelocityProvider _desiredVelocityProvider;
 
-        private Vector3 _acceleration;
-
-        [SerializeField]
-        private float _mass = 1;
-
-        [SerializeField, Range(1, 20)]
-        private float _velocityLimit = 1;
-
-        [SerializeField, Range(1, 20)]
-        private float _steeringForceLimit = 1;
-
-        [SerializeField] 
-        private float _circleDistance = 2;
-
-        [SerializeField]
-        private float _circleRadius = 1;
-
-        [SerializeField, Range(1, 75)]
-        private int _rotateAngle = 10;
-
-        [SerializeField, Range(1, 10)]
-        private int _wallDetectionDistance = 2;
-
-        private int _angle;
-    
-        public float VelocityLimit => _velocityLimit;
-
-        public void ApplyForce(Vector3 force)
+        public Hare()
         {
-            var acceleration = force / _mass;
-            _acceleration += acceleration;
+            _desiredVelocityProvider = new WanderVelocityProvider(this);
         }
 
         // Update is called once per frame
@@ -50,52 +20,50 @@ namespace Assets.Scripts.Animals
             ApplyForces();
         }
 
-        private void ApplySteeringForce()
+        protected override Vector3 GetDesiredVelocity()
         {
-            var desiredVelocity = GetDesiredVelocity();
-            if (CheckWalls(desiredVelocity))
-                desiredVelocity = Quaternion.Euler(0, 0, 90) * desiredVelocity;
-            var steeringForce = desiredVelocity - _velocity;
-            ApplyForce(steeringForce.normalized * _steeringForceLimit);
-        }
-
-        private Vector3 GetDesiredVelocity()
-        {
-            var rndValue = Random.value;
-            if (rndValue < 0.5f)
-                _angle += _rotateAngle;
-            else if (rndValue < 1)
-                _angle -= _rotateAngle;
-
-            var position = transform.position;
-            var futurePosition = position + _velocity.normalized * _circleDistance;
-            var vector = new Vector3(Mathf.Cos(_angle * Mathf.Deg2Rad), Mathf.Sin(_angle * Mathf.Deg2Rad), 0);
-            return (futurePosition + vector - position).normalized * _velocityLimit;
-        }
-
-        private void ApplyForces()
-        {
-            _velocity += _acceleration * Time.deltaTime;
-            _velocity = Vector3.ClampMagnitude(_velocity, _velocityLimit);
-            if (_velocity.magnitude < Epsilon)
+            var creatures = GetSeenCreatures();
+            if (creatures.Any() && !IsRunning)
             {
-                _velocity = Vector3.zero;
-                return;
+                _desiredVelocityProvider = new FleeVelocityProvider(this);
+                IsRunning = true;
+            }
+            else if (!creatures.Any() && IsRunning)
+            {
+                _desiredVelocityProvider = new WanderVelocityProvider(this);
+                IsRunning = false;
             }
 
-            transform.position += _velocity * Time.deltaTime;
-            _acceleration = Vector3.zero;
+            var desiredVelocity = _desiredVelocityProvider.GetDesiredVelocity(creatures.ToArray());
+            if (!GetSeenObstacles(Velocity, out var obstacles)) 
+                return desiredVelocity;
+            var avoidanceVelocity = GetObstacleAvoidanceVelocity(obstacles);
+            desiredVelocity = (desiredVelocity + avoidanceVelocity * 2) / 2;
+
+            return desiredVelocity;
         }
 
-        private bool CheckWalls(Vector2 direction)
+        private IEnumerable<Transform> GetSeenCreatures()
         {
-            RaycastHit2D hit = Physics2D.Raycast(gameObject.transform.position,direction,_wallDetectionDistance);
-            if (hit.transform == null || !hit.transform.gameObject.tag.Equals("Wall")) 
-                return false;
-            
-            Debug.Log($"Wall detected by {name}");
-            return true;
+            var angle = 0F;
+            var vector = Velocity.normalized;           
+            var raycastHits = new LinkedList<Transform>();
 
+            for (var i = 0; i < RaysToCast; i++)
+            {
+                GetComponent<Collider2D>().enabled = false;
+                var hit = Physics2D.Raycast(transform.position, vector, ViewRadius);
+                GetComponent<Collider2D>().enabled = true;
+                if (hit.collider != null && !hit.transform.gameObject.tag.Equals("Obstacle") && !raycastHits.Contains(hit.transform))
+                {
+                    raycastHits.AddLast(hit.transform);
+                }
+                angle += 360 / RaysToCast;
+                var rotate = Quaternion.Euler(0, 0, angle);
+                vector = rotate * vector;
+            }
+
+            return raycastHits;
         }
     }
 }

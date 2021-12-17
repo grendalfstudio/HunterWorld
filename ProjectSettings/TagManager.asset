@@ -8,6 +8,7 @@ TagManager:
   - Hare
   - Deer
   - Wall
+  - Obstacle
   layers:
   - Default
   - TransparentFX

@@ -14,13 +14,13 @@ namespace MainMenu
         [SerializeField] private GameObject settingsPanel;
         [SerializeField] private SceneLoader sceneLoader;
         [SerializeField] private Button playButton;
-        [SerializeField] private TMP_InputField playerNameIF;
-        [SerializeField] private TMP_InputField bulletsIF;
-        [SerializeField] private TMP_InputField wolfsIF;
-        [SerializeField] private TMP_InputField haresIF;
-        [SerializeField] private TMP_InputField deerGroupsIF;
-        [SerializeField] private TMP_InputField deerPerGroupsMinIF;
-        [SerializeField] private TMP_InputField deerPerGroupsMaxIF;
+        [SerializeField] private TMP_InputField playerNameIf;
+        [SerializeField] private TMP_InputField bulletsIf;
+        [SerializeField] private TMP_InputField wolfsIf;
+        [SerializeField] private TMP_InputField haresIf;
+        [SerializeField] private TMP_InputField deerGroupsIf;
+        [SerializeField] private TMP_InputField deerPerGroupsMinIf;
+        [SerializeField] private TMP_InputField deerPerGroupsMaxIf;
 
         private void Start()
         {
@@ -35,41 +35,41 @@ namespace MainMenu
 
         private void SetSavedValues()
         {
-            playerNameIF.text = PlayerProfile.Instance.GameData.PlayerName;
-            bulletsIF.text = PlayerProfile.Instance.GameData.BulletsCount.ToString();
-            wolfsIF.text = PlayerProfile.Instance.GameData.WolfsCount.ToString();
-            haresIF.text = PlayerProfile.Instance.GameData.HaresCount.ToString();
-            deerGroupsIF.text = PlayerProfile.Instance.GameData.DeersGroupsCount.ToString();
-            deerPerGroupsMinIF.text = PlayerProfile.Instance.GameData.DeersOnGroupCount.Item1.ToString();
-            deerPerGroupsMaxIF.text = PlayerProfile.Instance.GameData.DeersOnGroupCount.Item2.ToString();
+            playerNameIf.text = PlayerProfile.Instance.GameData.PlayerName;
+            bulletsIf.text = PlayerProfile.Instance.GameData.BulletsCount.ToString();
+            wolfsIf.text = PlayerProfile.Instance.GameData.WolfsCount.ToString();
+            haresIf.text = PlayerProfile.Instance.GameData.HaresCount.ToString();
+            deerGroupsIf.text = PlayerProfile.Instance.GameData.DeersGroupsCount.ToString();
+            deerPerGroupsMinIf.text = PlayerProfile.Instance.GameData.DeersOnGroupCount.Item1.ToString();
+            deerPerGroupsMaxIf.text = PlayerProfile.Instance.GameData.DeersOnGroupCount.Item2.ToString();
         }
 
         private void AddListeners()
         {
             playButton.onClick.AddListener(OnPlayClicked);
-            playerNameIF.onEndEdit.AddListener(OnNameChanged);
-            bulletsIF.onEndEdit.AddListener(OnBulletsChanged);
-            wolfsIF.onEndEdit.AddListener(OnWolfsChanged);
-            haresIF.onEndEdit.AddListener(OnHaresChanged);
-            deerGroupsIF.onEndEdit.AddListener(OnDeerGroupsChanged);
-            deerPerGroupsMinIF.onEndEdit.AddListener(OnDeerOnGroupsMinChanged);
-            deerPerGroupsMinIF.onValueChanged.AddListener(OnDeerGroupsMaxUpdate);
-            deerPerGroupsMaxIF.onEndEdit.AddListener(OnDeerOnGroupsMaxChanged);
-            deerPerGroupsMaxIF.onValueChanged.AddListener(OnDeerGroupsMinUpdate);
+            playerNameIf.onEndEdit.AddListener(OnNameChanged);
+            bulletsIf.onEndEdit.AddListener(OnBulletsChanged);
+            wolfsIf.onEndEdit.AddListener(OnWolfsChanged);
+            haresIf.onEndEdit.AddListener(OnHaresChanged);
+            deerGroupsIf.onEndEdit.AddListener(OnDeerGroupsChanged);
+            deerPerGroupsMinIf.onEndEdit.AddListener(OnDeerOnGroupsMinChanged);
+            deerPerGroupsMinIf.onValueChanged.AddListener(OnDeerGroupsMaxUpdate);
+            deerPerGroupsMaxIf.onEndEdit.AddListener(OnDeerOnGroupsMaxChanged);
+            deerPerGroupsMaxIf.onValueChanged.AddListener(OnDeerGroupsMinUpdate);
         }
 
         private void RemoveListeners()
         {
             playButton.onClick.RemoveListener(OnPlayClicked);
-            playerNameIF.onEndEdit.RemoveListener(OnNameChanged);
-            bulletsIF.onEndEdit.RemoveListener(OnBulletsChanged);
-            wolfsIF.onEndEdit.RemoveListener(OnWolfsChanged);
-            haresIF.onEndEdit.RemoveListener(OnHaresChanged);
-            deerGroupsIF.onEndEdit.RemoveListener(OnDeerGroupsChanged);
-            deerPerGroupsMinIF.onEndEdit.RemoveListener(OnDeerOnGroupsMinChanged);
-            deerPerGroupsMinIF.onValueChanged.RemoveListener(OnDeerGroupsMaxUpdate);
-            deerPerGroupsMaxIF.onEndEdit.RemoveListener(OnDeerOnGroupsMaxChanged);
-            deerPerGroupsMaxIF.onValueChanged.RemoveListener(OnDeerGroupsMinUpdate);
+            playerNameIf.onEndEdit.RemoveListener(OnNameChanged);
+            bulletsIf.onEndEdit.RemoveListener(OnBulletsChanged);
+            wolfsIf.onEndEdit.RemoveListener(OnWolfsChanged);
+            haresIf.onEndEdit.RemoveListener(OnHaresChanged);
+            deerGroupsIf.onEndEdit.RemoveListener(OnDeerGroupsChanged);
+            deerPerGroupsMinIf.onEndEdit.RemoveListener(OnDeerOnGroupsMinChanged);
+            deerPerGroupsMinIf.onValueChanged.RemoveListener(OnDeerGroupsMaxUpdate);
+            deerPerGroupsMaxIf.onEndEdit.RemoveListener(OnDeerOnGroupsMaxChanged);
+            deerPerGroupsMaxIf.onValueChanged.RemoveListener(OnDeerGroupsMinUpdate);
         }
 
         private void OnNameChanged(string newName)
@@ -116,7 +116,7 @@ namespace MainMenu
             if (Convert.ToInt32(newCount) < PlayerProfile.Instance.GameData.DeersOnGroupCount.Item1)
             {
                 OnDeerOnGroupsMinChanged(newCount);
-                deerPerGroupsMinIF.text = newCount;
+                deerPerGroupsMinIf.text = newCount;
             }
         }
         
@@ -125,7 +125,7 @@ namespace MainMenu
             if (Convert.ToInt32(newCount) > PlayerProfile.Instance.GameData.DeersOnGroupCount.Item2)
             {
                 OnDeerOnGroupsMaxChanged(newCount);
-                deerPerGroupsMaxIF.text = newCount;
+                deerPerGroupsMaxIf.text = newCount;
             }
         }
 
