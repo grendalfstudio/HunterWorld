@@ -116,7 +116,7 @@ MonoBehaviour:
   aim: {fileID: 652253103408903941}
   gun: {fileID: 5906198598549774496}
   hitPrefab: {fileID: 6214092962502445127, guid: 21e5d189cccd4aa4fab355b6934eb758, type: 3}
-  shootSound: {fileID: 0}
+  shootSound: {fileID: 8300000, guid: d1698dd553af8ef4d887bc83b9687173, type: 3}
   controller: {fileID: 0}
 --- !u!1 &652253103408903941
 GameObject:
