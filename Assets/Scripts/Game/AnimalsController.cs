@@ -32,7 +32,7 @@ namespace Assets.Scripts.Game
             SpawnAnimals();
         }
 
-        public void KillTheAnimal(GameObject animal)
+        public void KillTheAnimal(GameObject animal, bool isMurdered = false)
         {
             if (!animals.Contains(animal))
             {
@@ -43,15 +43,15 @@ namespace Assets.Scripts.Game
             {
                 case "Hare":
                     HaresCount--;
-                    Instantiate(deadPrefabs[0], animal.transform.position, animal.transform.rotation);
+                    if(isMurdered) Instantiate(deadPrefabs[0], animal.transform.position, animal.transform.rotation);
                     break;
                 case "Deer":
                     DeersCount--;
-                    Instantiate(deadPrefabs[1], animal.transform.position, animal.transform.rotation);
+                    if(isMurdered) Instantiate(deadPrefabs[1], animal.transform.position, animal.transform.rotation);
                     break;
                 case "Wolf":
                     WolfsCount--;
-                    Instantiate(deadPrefabs[2], animal.transform.position, animal.transform.rotation);
+                    if(isMurdered) Instantiate(deadPrefabs[2], animal.transform.position, animal.transform.rotation);
                     break;
             }
             

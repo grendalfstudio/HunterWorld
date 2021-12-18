@@ -17,11 +17,7 @@ namespace Assets.Scripts.Player
             {
                 OnPlayerDied?.Invoke();
             }
-        }
-
-        private void OnTriggerExit2D(Collider2D col)
-        {
-            if (col.tag.Equals("Wall") && IsOutsideTheMap(col.transform))
+            if (col.tag.Equals("Obstacle") && IsOutsideTheMap(col.transform))
             {
                 OnPlayerDied?.Invoke();
             }
@@ -29,8 +25,8 @@ namespace Assets.Scripts.Player
 
         private bool IsOutsideTheMap(Transform wall)
         {
-            var checkByX = wall.position.y == 0 && Math.Abs(transform.position.x) > Math.Abs(wall.position.x);
-            var checkByY = wall.position.x == 0 && Math.Abs(transform.position.y) > Math.Abs(wall.position.y);
+            var checkByX = wall.position.y == 0 && Math.Abs(transform.position.x) > Math.Abs(wall.position.x-1);
+            var checkByY = wall.position.x == 0 && Math.Abs(transform.position.y) > Math.Abs(wall.position.y-1);
             
             return checkByX || checkByY;
         }
