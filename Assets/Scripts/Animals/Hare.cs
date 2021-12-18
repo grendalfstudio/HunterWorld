@@ -13,16 +13,9 @@ namespace Assets.Scripts.Animals
             _desiredVelocityProvider = new WanderVelocityProvider(this);
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-            ApplySteeringForce();
-            ApplyForces();
-        }
-
         protected override Vector3 GetDesiredVelocity()
         {
-            var creatures = GetSeenCreatures();
+            var creatures = GetSeenCreatures(new HashSet<string>());
             if (creatures.Any() && !IsRunning)
             {
                 _desiredVelocityProvider = new FleeVelocityProvider(this);
@@ -41,29 +34,6 @@ namespace Assets.Scripts.Animals
             desiredVelocity = (desiredVelocity + avoidanceVelocity * 2) / 2;
 
             return desiredVelocity;
-        }
-
-        private IEnumerable<Transform> GetSeenCreatures()
-        {
-            var angle = 0F;
-            var vector = Velocity.normalized;           
-            var raycastHits = new LinkedList<Transform>();
-
-            for (var i = 0; i < RaysToCast; i++)
-            {
-                Collider2D.enabled = false;
-                var hit = Physics2D.Raycast(transform.position, vector, ViewRadius);
-                Collider2D.enabled = true;
-                if (hit.collider != null && !hit.transform.gameObject.tag.Equals("Obstacle") && !raycastHits.Contains(hit.transform))
-                {
-                    raycastHits.AddLast(hit.transform);
-                }
-                angle += 360 / RaysToCast;
-                var rotate = Quaternion.Euler(0, 0, angle);
-                vector = rotate * vector;
-            }
-
-            return raycastHits;
         }
     }
 }

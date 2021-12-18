@@ -37,6 +37,9 @@ namespace Assets.Scripts.Animals
         [SerializeField, Range(1, 10)]
         private float viewRadius = 2;
 
+        [SerializeField, Range(1, 10)]
+        private float obstacleAvoidanceRadius = 2;
+
         [SerializeField]
         private Collider2D collider2d;
     
@@ -59,6 +62,13 @@ namespace Assets.Scripts.Animals
             var desiredVelocity = GetDesiredVelocity();
             var steeringForce = desiredVelocity - _velocity;
             ApplyForce(steeringForce.normalized * steeringForceLimit);
+        }
+
+        // Update is called once per frame
+        private void Update()
+        {
+            ApplySteeringForce();
+            ApplyForces();
         }
 
         protected abstract Vector3 GetDesiredVelocity();
@@ -95,7 +105,7 @@ namespace Assets.Scripts.Animals
                 var rotate = Quaternion.Euler(0, 0, angle);
                 vector = rotate * vector;
                 Collider2D.enabled = false;
-                var hit = Physics2D.Raycast(transform.position, vector, ViewRadius);
+                var hit = Physics2D.Raycast(transform.position, vector, obstacleAvoidanceRadius);
                 Collider2D.enabled = true;
                 Debug.DrawRay(transform.position, direction, Color.blue, 1);
                 if (hit.collider != null && hit.transform.gameObject.tag.Equals("Obstacle") && !raycastHits.Contains(hit.transform))
@@ -108,6 +118,30 @@ namespace Assets.Scripts.Animals
 
             walls = raycastHits.ToArray();
             return raycastHits.Any();
+        }
+
+        protected Transform[] GetSeenCreatures(HashSet<string> tagsToFilter)
+        {
+            var angle = 0F;
+            var vector = Velocity.normalized;           
+            var raycastHits = new LinkedList<Transform>();
+            tagsToFilter.Add("Obstacle");
+
+            for (var i = 0; i < RaysToCast; i++)
+            {
+                Collider2D.enabled = false;
+                var hit = Physics2D.Raycast(transform.position, vector, ViewRadius);
+                Collider2D.enabled = true;
+                if (hit.collider != null && !tagsToFilter.Contains(hit.transform.gameObject.tag) && !raycastHits.Contains(hit.transform))
+                {
+                    raycastHits.AddLast(hit.transform);
+                }
+                angle += 360f / RaysToCast;
+                var rotate = Quaternion.Euler(0, 0, angle);
+                vector = rotate * vector;
+            }
+
+            return raycastHits.ToArray();
         }
 
         protected Vector3 GetObstacleAvoidanceVelocity(Transform[] obstacles)

@@ -57,6 +57,7 @@ GameObject:
   m_Component:
   - component: {fileID: 985452385439857163}
   - component: {fileID: 6478569088426774372}
+  - component: {fileID: 4192296586417013818}
   m_Layer: 0
   m_Name: Wolf
   m_TagString: Wolf
@@ -130,3 +131,26 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4192296586417013818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5852199462231055487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf859b0584c82734284a500233696297, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mass: 5
+  wanderVelocityLimit: 2
+  runVelocityLimit: 2
+  steeringForceLimit: 4
+  wanderPointDistance: 2
+  circleRadius: 1
+  wanderRotateAngle: 10
+  viewRadius: 3.02
+  obstacleAvoidanceRadius: 2
+  collider2d: {fileID: 8701265079799433609}
+  canLiveWithoutTargetSeconds: 15
