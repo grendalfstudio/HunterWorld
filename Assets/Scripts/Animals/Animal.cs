@@ -30,14 +30,14 @@ namespace Assets.Scripts.Animals
         [SerializeField] 
         private float wanderPointDistance = 2;
 
-        [SerializeField]
-        private float circleRadius = 1;
-
         [SerializeField, Range(1, 75)]
         public int wanderRotateAngle = 10;
 
         [SerializeField, Range(1, 10)]
         private float viewRadius = 2;
+
+        [SerializeField, Range(1, 10)]
+        private float obstacleAvoidanceRadius = 2;
 
         [SerializeField]
         private List<Collider2D> collider2d;
@@ -56,11 +56,20 @@ namespace Assets.Scripts.Animals
 
         public List<Collider2D> Collider2D => collider2d;
 
-        protected void ApplySteeringForce()
+        public float SteeringForceLimit => steeringForceLimit;
+
+        protected virtual void ApplySteeringForce()
         {
             var desiredVelocity = GetDesiredVelocity();
             var steeringForce = desiredVelocity - _velocity;
-            ApplyForce(steeringForce.normalized * steeringForceLimit);
+            ApplyForce(steeringForce.normalized * SteeringForceLimit);
+        }
+
+        // Update is called once per frame
+        private void Update()
+        {
+            ApplySteeringForce();
+            ApplyForces();
         }
 
         protected abstract Vector3 GetDesiredVelocity();
@@ -100,8 +109,7 @@ namespace Assets.Scripts.Animals
                 {
                     col.enabled = false;
                 }
-                var hit = Physics2D.Raycast(transform.position, vector, ViewRadius);
-                //Debug.DrawRay(transform.position, vector, Color.blue, 1);
+                var hit = Physics2D.Raycast(transform.position, vector, obstacleAvoidanceRadius);
                 foreach (var col in Collider2D)
                 {
                     col.enabled = true;
@@ -118,14 +126,47 @@ namespace Assets.Scripts.Animals
             return raycastHits.Any();
         }
 
+        protected Transform[] GetSeenCreatures(HashSet<string> tagsToFilter)
+        {
+            return GetSeenCreatures(tagsToFilter, ViewRadius);
+        }
+        
+        protected Transform[] GetSeenCreatures(HashSet<string> tagsToFilter, float viewRadius)
+        {
+            var angle = 0F;
+            var vector = Velocity.normalized;           
+            var raycastHits = new LinkedList<Transform>();
+            tagsToFilter.Add("Obstacle");
+            tagsToFilter.Add("StoryPoint");
+
+            for (var i = 0; i < RaysToCast; i++)
+            {
+                foreach (var col in Collider2D)
+                {
+                    col.enabled = false;
+                }
+                var hit = Physics2D.Raycast(transform.position, vector, viewRadius);
+                foreach (var col in Collider2D)
+                {
+                    col.enabled = true;
+                }
+                if (hit.collider != null && !tagsToFilter.Contains(hit.transform.gameObject.tag) && !raycastHits.Contains(hit.transform))
+                {
+                    raycastHits.AddLast(hit.transform);
+                }
+                angle += 360f / RaysToCast;
+                var rotate = Quaternion.Euler(0, 0, angle);
+                vector = rotate * vector;
+            }
+
+            return raycastHits.ToArray();
+        }
+
         protected Vector3 GetObstacleAvoidanceVelocity(Transform[] obstacles)
         {
-            var summarizedVectors = obstacles
-                .Select(w => Velocity - w.position)
-                .Aggregate(Vector3.zero, (current, vector) => 
-                    new Vector3(current.x + vector.x, current.y + vector.y));
-                
-            var desiredVelocity = -((Velocity - new Vector3(summarizedVectors.x/obstacles.Length, summarizedVectors.y/obstacles.Length)).normalized * WanderVelocityLimit);
+            var vectorSummarized = new Vector3();
+            vectorSummarized = obstacles.Aggregate(vectorSummarized, (current, obstacle) => current + obstacle.position);
+            var desiredVelocity = -((Velocity - (vectorSummarized / obstacles.Length)).normalized * WanderVelocityLimit);
             return desiredVelocity;
         }
     }

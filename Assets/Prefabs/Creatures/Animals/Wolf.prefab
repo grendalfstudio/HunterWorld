@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 985452385439857163}
   - component: {fileID: 6478569088426774372}
+  - component: {fileID: 4192296586417013818}
   - component: {fileID: 4322572377133344323}
   - component: {fileID: 6260223199556530834}
   - component: {fileID: 187029609289472298}
@@ -86,6 +87,29 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4192296586417013818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5852199462231055487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf859b0584c82734284a500233696297, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mass: 6
+  wanderVelocityLimit: 2
+  runVelocityLimit: 6
+  steeringForceLimit: 2.59
+  wanderPointDistance: 2
+  wanderRotateAngle: 15
+  viewRadius: 3.98
+  obstacleAvoidanceRadius: 3.01
+  collider2d: {fileID: 8701265079799433609}
+  canLiveWithoutTargetSeconds: 15
+  arrivalRange: 4.33
 --- !u!58 &4322572377133344323
 CircleCollider2D:
   m_ObjectHideFlags: 0
