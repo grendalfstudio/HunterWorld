@@ -30,9 +30,6 @@ namespace Assets.Scripts.Animals
         [SerializeField] 
         private float wanderPointDistance = 2;
 
-        [SerializeField]
-        private float circleRadius = 1;
-
         [SerializeField, Range(1, 75)]
         public int wanderRotateAngle = 10;
 
@@ -59,11 +56,13 @@ namespace Assets.Scripts.Animals
 
         public Collider2D Collider2D => collider2d;
 
-        protected void ApplySteeringForce()
+        public float SteeringForceLimit => steeringForceLimit;
+
+        protected virtual void ApplySteeringForce()
         {
             var desiredVelocity = GetDesiredVelocity();
             var steeringForce = desiredVelocity - _velocity;
-            ApplyForce(steeringForce.normalized * steeringForceLimit);
+            ApplyForce(steeringForce.normalized * SteeringForceLimit);
         }
 
         // Update is called once per frame
@@ -123,6 +122,11 @@ namespace Assets.Scripts.Animals
 
         protected Transform[] GetSeenCreatures(HashSet<string> tagsToFilter)
         {
+            return GetSeenCreatures(tagsToFilter, ViewRadius);
+        }
+        
+        protected Transform[] GetSeenCreatures(HashSet<string> tagsToFilter, float viewRadius)
+        {
             var angle = 0F;
             var vector = Velocity.normalized;           
             var raycastHits = new LinkedList<Transform>();
@@ -132,7 +136,7 @@ namespace Assets.Scripts.Animals
             for (var i = 0; i < RaysToCast; i++)
             {
                 Collider2D.enabled = false;
-                var hit = Physics2D.Raycast(transform.position, vector, ViewRadius);
+                var hit = Physics2D.Raycast(transform.position, vector, viewRadius);
                 Collider2D.enabled = true;
                 if (hit.collider != null && !tagsToFilter.Contains(hit.transform.gameObject.tag) && !raycastHits.Contains(hit.transform))
                 {
@@ -148,12 +152,9 @@ namespace Assets.Scripts.Animals
 
         protected Vector3 GetObstacleAvoidanceVelocity(Transform[] obstacles)
         {
-            var summarizedVectors = obstacles
-                .Select(w => Velocity - w.position)
-                .Aggregate(Vector3.zero, (current, vector) => 
-                    new Vector3(current.x + vector.x, current.y + vector.y));
-                
-            var desiredVelocity = -((Velocity - new Vector3(summarizedVectors.x/obstacles.Length, summarizedVectors.y/obstacles.Length)).normalized * WanderVelocityLimit);
+            var vectorSummarized = new Vector3();
+            vectorSummarized = obstacles.Aggregate(vectorSummarized, (current, obstacle) => current + obstacle.position);
+            var desiredVelocity = -((Velocity - (vectorSummarized / obstacles.Length)).normalized * WanderVelocityLimit);
             return desiredVelocity;
         }
     }

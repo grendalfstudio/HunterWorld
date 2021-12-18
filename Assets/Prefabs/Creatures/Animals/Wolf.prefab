@@ -178,15 +178,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf859b0584c82734284a500233696297, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mass: 5
+  mass: 6
   wanderVelocityLimit: 2
-  runVelocityLimit: 4
-  steeringForceLimit: 4
+  runVelocityLimit: 6
+  steeringForceLimit: 2.59
   wanderPointDistance: 2
-  circleRadius: 1
-  wanderRotateAngle: 10
-  viewRadius: 4.21
+  wanderRotateAngle: 15
+  viewRadius: 3.98
   obstacleAvoidanceRadius: 3.01
   collider2d: {fileID: 8701265079799433609}
   canLiveWithoutTargetSeconds: 15
-  arrivalRange: 5
+  arrivalRange: 4.33

@@ -96,12 +96,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b016e831bb28af4a92d8614c1d462f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mass: 1
-  wanderVelocityLimit: 1
-  runVelocityLimit: 2
-  steeringForceLimit: 1
+  mass: 2
+  wanderVelocityLimit: 1.55
+  runVelocityLimit: 7
+  steeringForceLimit: 3.02
   wanderPointDistance: 2
-  circleRadius: 1
   wanderRotateAngle: 10
   viewRadius: 2
   obstacleAvoidanceRadius: 2
