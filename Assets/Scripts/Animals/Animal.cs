@@ -109,7 +109,6 @@ namespace Assets.Scripts.Animals
                 Collider2D.enabled = false;
                 var hit = Physics2D.Raycast(transform.position, vector, obstacleAvoidanceRadius);
                 Collider2D.enabled = true;
-                Debug.DrawRay(transform.position, direction, Color.blue, 1);
                 if (hit.collider != null && hit.transform.gameObject.tag.Equals("Obstacle") && !raycastHits.Contains(hit.transform))
                 {
                     raycastHits.AddLast(hit.transform);
@@ -128,6 +127,7 @@ namespace Assets.Scripts.Animals
             var vector = Velocity.normalized;           
             var raycastHits = new LinkedList<Transform>();
             tagsToFilter.Add("Obstacle");
+            tagsToFilter.Add("StoryPoint");
 
             for (var i = 0; i < RaysToCast; i++)
             {

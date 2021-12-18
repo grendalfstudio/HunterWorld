@@ -17,6 +17,9 @@ public class Wolf : Animal
     [SerializeField, Range(15, 90)]
     private float canLiveWithoutTargetSeconds = 30;
 
+    [SerializeField, Range(1, 5)] 
+    private float arrivalRange = 2;
+
     public Wolf()
     {
         _desiredVelocityProvider = new WanderVelocityProvider(this);
@@ -24,8 +27,10 @@ public class Wolf : Animal
 
     private void Update()
     {
+        if (_target == null)
+            _hasTarget = false;
         if (_secondsWithoutTarget > canLiveWithoutTargetSeconds) 
-            Destroy(this);
+            Destroy(this.gameObject);
         ApplySteeringForce();
         ApplyForces();
     }
@@ -34,24 +39,20 @@ public class Wolf : Animal
     {
         if (!_hasTarget)
         {
+            _secondsWithoutTarget += Time.deltaTime;
             var creatures = GetSeenCreatures(new HashSet<string>(){"Wolf"});
             if (creatures.Any())
             {
-                _desiredVelocityProvider = new SeekVelocityProvider(this);
+                _desiredVelocityProvider = new SeekVelocityProvider(this, arrivalRange);
                 _target = creatures.GetRandomElement();
                 IsRunning = true;
                 _hasTarget = true;
             }
             else if (!creatures.Any() && IsRunning)
             {
-                _secondsWithoutTarget += Time.deltaTime;
                 _desiredVelocityProvider = new WanderVelocityProvider(this);
                 IsRunning = false;
             }
-        }
-        else
-        {
-            if (_target is null) _hasTarget = false;
         }
 
         var desiredVelocity = _desiredVelocityProvider.GetDesiredVelocity(new[] { _target });
@@ -63,9 +64,17 @@ public class Wolf : Animal
         return desiredVelocity;
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    //not working
+    private void OnCollisionEnter2D(Collision2D col)
     {
-        if(other.gameObject == _target.gameObject)
-            Debug.Log($"{name} hit {other.gameObject.name}");
+        if(col.gameObject == _target.gameObject)
+            Debug.Log($"{name} hit {col.gameObject.name}");
+    }
+
+    //also not working
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if(col.gameObject == _target.gameObject)
+            Debug.Log($"{name} hit {col.gameObject.name}");
     }
 }

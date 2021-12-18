@@ -57,9 +57,9 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3070488811135020143}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
-  m_UseFullKinematicContacts: 0
+  m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
@@ -180,12 +180,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mass: 5
   wanderVelocityLimit: 2
-  runVelocityLimit: 2
+  runVelocityLimit: 4
   steeringForceLimit: 4
   wanderPointDistance: 2
   circleRadius: 1
   wanderRotateAngle: 10
-  viewRadius: 3.02
-  obstacleAvoidanceRadius: 2
+  viewRadius: 4.21
+  obstacleAvoidanceRadius: 3.01
   collider2d: {fileID: 8701265079799433609}
   canLiveWithoutTargetSeconds: 15
+  arrivalRange: 5
