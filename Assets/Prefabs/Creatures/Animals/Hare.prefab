@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7713218424813990107}
   - component: {fileID: 2854555219192149925}
+  - component: {fileID: 3314771124087023352}
   m_Layer: 0
   m_Name: Hare
   m_TagString: Hare
@@ -24,8 +25,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2580351872456862596}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.29, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7470841418532377583}
@@ -83,6 +84,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3314771124087023352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2580351872456862596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b016e831bb28af4a92d8614c1d462f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mass: 1
+  wanderVelocityLimit: 1
+  runVelocityLimit: 2
+  steeringForceLimit: 1
+  wanderPointDistance: 2
+  circleRadius: 1
+  wanderRotateAngle: 10
+  viewRadius: 2
+  collider2d: {fileID: 8416976801864065575}
 --- !u!1 &3533963636616140502
 GameObject:
   m_ObjectHideFlags: 0

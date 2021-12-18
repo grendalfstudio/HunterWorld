@@ -8,6 +8,7 @@ TagManager:
   - Hare
   - Deer
   - Creatures
+  - Obstacle
   - StoryPoint
   layers:
   - Default

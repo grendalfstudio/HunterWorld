@@ -4794,13 +4794,13 @@ MonoBehaviour:
   settingsPanel: {fileID: 784495461}
   sceneLoader: {fileID: 911019008}
   playButton: {fileID: 1656087716}
-  playerNameIF: {fileID: 1837113049}
-  bulletsIF: {fileID: 1338315553}
-  wolfsIF: {fileID: 1216801921}
-  haresIF: {fileID: 1412098272}
-  deerGroupsIF: {fileID: 473642047}
-  deerPerGroupsMinIF: {fileID: 1769940384}
-  deerPerGroupsMaxIF: {fileID: 1929969543}
+  playerNameIf: {fileID: 1837113049}
+  bulletsIf: {fileID: 1338315553}
+  wolfsIf: {fileID: 1216801921}
+  haresIf: {fileID: 1412098272}
+  deerGroupsIf: {fileID: 473642047}
+  deerPerGroupsMinIf: {fileID: 1769940384}
+  deerPerGroupsMaxIf: {fileID: 1929969543}
 --- !u!1 &1656087714
 GameObject:
   m_ObjectHideFlags: 0
