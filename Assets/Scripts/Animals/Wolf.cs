@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Animals;
+using Assets.Scripts.Game;
 using Common;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
@@ -30,7 +31,7 @@ public class Wolf : Animal
         if (_target == null)
             _hasTarget = false;
         if (_secondsWithoutTarget > canLiveWithoutTargetSeconds) 
-            Destroy(this.gameObject);
+            transform.root.gameObject.GetComponent<AnimalsController>().KillTheAnimal(this.gameObject);
         ApplySteeringForce();
         ApplyForces();
     }
@@ -67,14 +68,14 @@ public class Wolf : Animal
     //not working
     private void OnCollisionEnter2D(Collision2D col)
     {
-        if(col.gameObject == _target.gameObject)
+        if(_hasTarget && col.gameObject == _target.gameObject)
             Debug.Log($"{name} hit {col.gameObject.name}");
     }
 
     //also not working
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if(col.gameObject == _target.gameObject)
+        if(_hasTarget && col.gameObject == _target.gameObject)
             Debug.Log($"{name} hit {col.gameObject.name}");
     }
 }

@@ -18,7 +18,7 @@ namespace Assets.Scripts.Animals
                 if ((!(distance > 0))) 
                     continue;
                 var type = Animal.GetType();
-                var component = target.gameObject.GetComponentInParent(type);
+                var component = target.gameObject.GetComponent(type);
                 summarizedVector += ((Animal)component).Velocity;
                 count++;
             }

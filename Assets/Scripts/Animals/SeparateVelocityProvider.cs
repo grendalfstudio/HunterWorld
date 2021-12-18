@@ -10,7 +10,7 @@ namespace Assets.Scripts.Animals
 
         public override Vector3 GetDesiredVelocity(Transform[] targets = null)
         {
-            var desiredSeparation = Animal.Collider2D switch
+            var desiredSeparation = Animal.Collider2D[0] switch
             {
                 CapsuleCollider2D capsule => capsule.size.y,
                 CircleCollider2D circle => circle.radius * 2,

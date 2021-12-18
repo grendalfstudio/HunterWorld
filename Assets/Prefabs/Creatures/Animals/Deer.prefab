@@ -107,7 +107,9 @@ MonoBehaviour:
   wanderRotateAngle: 10
   viewRadius: 4.03
   obstacleAvoidanceRadius: 3.84
-  collider2d: {fileID: 2219268185449924715}
+  collider2d:
+  - {fileID: 693577969561692111}
+  - {fileID: 8255838452500510136}
   dangerSenseDistance: 5
   cohesionWeight: 1.2
   separationWeight: 1

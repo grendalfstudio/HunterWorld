@@ -101,12 +101,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mass: 2
   wanderVelocityLimit: 1.55
-  runVelocityLimit: 5
-  steeringForceLimit: 5
+  runVelocityLimit: 6
+  steeringForceLimit: 6
   wanderPointDistance: 1
   wanderRotateAngle: 15
-  viewRadius: 10
-  obstacleAvoidanceRadius: 2
+  viewRadius: 2
+  obstacleAvoidanceRadius: 3
   collider2d:
   - {fileID: 8751190087805238186}
   - {fileID: 8020406956751851316}
