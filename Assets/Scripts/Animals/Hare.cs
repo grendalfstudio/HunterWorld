@@ -51,9 +51,16 @@ namespace Assets.Scripts.Animals
 
             for (var i = 0; i < RaysToCast; i++)
             {
-                Collider2D.enabled = false;
+                foreach (var col in Collider2D)
+                {
+                    col.enabled = false;
+                }
                 var hit = Physics2D.Raycast(transform.position, vector, ViewRadius);
-                Collider2D.enabled = true;
+                //Debug.DrawRay(transform.position, vector * ViewRadius, Color.blue, 1);
+                foreach (var col in Collider2D)
+                {
+                    col.enabled = true;
+                }
                 if (hit.collider != null && !hit.transform.gameObject.tag.Equals("Obstacle") && !raycastHits.Contains(hit.transform))
                 {
                     raycastHits.AddLast(hit.transform);

@@ -51,7 +51,7 @@ namespace Assets.Scripts.Player
             RaycastHit2D hit = Physics2D.Raycast(gun.transform.position,direction,direction.magnitude);
             if (hit.transform != null && hit.transform.root.tag.Equals("Creatures")) {
                 hitObj = Instantiate(hitPrefab, hit.transform.position, Quaternion.identity);
-                controller.KillTheAnimal(hit.transform.parent.gameObject, true);
+                controller.KillTheAnimal(hit.transform.gameObject, true);
             }
             else
             {
