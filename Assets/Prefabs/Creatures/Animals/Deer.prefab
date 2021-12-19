@@ -110,7 +110,7 @@ MonoBehaviour:
   collider2d:
   - {fileID: 693577969561692111}
   - {fileID: 8255838452500510136}
-  dangerSenseDistance: 5
+  dangerSenseDistance: 6.04
   cohesionWeight: 1.2
   separationWeight: 1
   alignmentWeight: 0.69
