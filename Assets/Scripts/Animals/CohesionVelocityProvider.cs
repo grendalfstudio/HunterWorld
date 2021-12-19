@@ -19,7 +19,7 @@ namespace Assets.Scripts.Animals
                 if (!(distance > 0)) 
                     continue;
                 
-                summarizedVector += target.position;
+                summarizedVector += target.position - Animal.transform.position;
                 count++;
             }
 
@@ -27,7 +27,7 @@ namespace Assets.Scripts.Animals
                 return Vector3.zero;
             
             summarizedVector /= count;
-            return (summarizedVector - Animal.transform.position).normalized * Animal.WanderVelocityLimit;
+            return summarizedVector.normalized * Animal.WanderVelocityLimit;
         }
     }
 }

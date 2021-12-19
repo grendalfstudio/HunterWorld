@@ -99,10 +99,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d2d04c602e84d629bbd2e9064aa61f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mass: 10
-  wanderVelocityLimit: 1
+  mass: 8
+  wanderVelocityLimit: 2
   runVelocityLimit: 5
-  steeringForceLimit: 5
+  steeringForceLimit: 10
   wanderPointDistance: 3
   wanderRotateAngle: 10
   viewRadius: 4.03
@@ -110,10 +110,11 @@ MonoBehaviour:
   collider2d:
   - {fileID: 693577969561692111}
   - {fileID: 8255838452500510136}
-  dangerSenseDistance: 6.04
+  avoidanceWeight: 10
+  dangerSenseDistance: 7
   cohesionWeight: 1
   separationWeight: 1
-  alignmentWeight: 0.5
+  alignmentWeight: 1
 --- !u!70 &693577969561692111
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

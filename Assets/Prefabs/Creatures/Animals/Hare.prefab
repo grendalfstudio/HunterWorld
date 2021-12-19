@@ -102,14 +102,15 @@ MonoBehaviour:
   mass: 2
   wanderVelocityLimit: 1.55
   runVelocityLimit: 6
-  steeringForceLimit: 4
+  steeringForceLimit: 7
   wanderPointDistance: 1
   wanderRotateAngle: 15
-  viewRadius: 2
-  obstacleAvoidanceRadius: 5.04
+  viewRadius: 3
+  obstacleAvoidanceRadius: 2
   collider2d:
   - {fileID: 8751190087805238186}
   - {fileID: 8020406956751851316}
+  avoidanceWeight: 6
 --- !u!70 &8751190087805238186
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

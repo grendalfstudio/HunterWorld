@@ -41,6 +41,9 @@ namespace Assets.Scripts.Animals
 
         [SerializeField]
         private List<Collider2D> collider2d;
+        
+        [SerializeField, Range(2,10)]
+        protected float avoidanceWeight = 4;
     
         public float WanderVelocityLimit => wanderVelocityLimit;
 
@@ -97,14 +100,13 @@ namespace Assets.Scripts.Animals
 
         protected bool GetSeenObstacles(Vector2 direction, out Transform[] walls)
         {
-            var angle = -90F;
-            var vector = Velocity.normalized;           
+            var angle = 0f;          
             var raycastHits = new LinkedList<Transform>();
             
-            for (int i = 0; i < 12; i++)
+            for (int i = 0; i < RaysToCast; i++)
             {
                 var rotate = Quaternion.Euler(0, 0, angle);
-                vector = rotate * vector;
+                var vector = rotate * Velocity.normalized;
                 foreach (var col in Collider2D)
                 {
                     col.enabled = false;
@@ -114,12 +116,12 @@ namespace Assets.Scripts.Animals
                 {
                     col.enabled = true;
                 }
-                if (hit.collider != null && hit.transform.gameObject.tag.Equals("Obstacle") && !raycastHits.Contains(hit.transform))
+                if (hit.collider != null && (hit.transform.gameObject.tag.Equals("Obstacle") || hit.transform.gameObject.tag.Equals("Wall")) && !raycastHits.Contains(hit.transform))
                 {
                     raycastHits.AddLast(hit.transform);
                 }
 
-                angle += 15;
+                angle += 360f / RaysToCast;
             }
 
             walls = raycastHits.ToArray();
@@ -137,6 +139,7 @@ namespace Assets.Scripts.Animals
             var vector = Velocity.normalized;           
             var raycastHits = new LinkedList<Transform>();
             tagsToFilter.Add("Obstacle");
+            tagsToFilter.Add("Wall");
             tagsToFilter.Add("StoryPoint");
 
             for (var i = 0; i < RaysToCast; i++)
@@ -156,7 +159,7 @@ namespace Assets.Scripts.Animals
                 }
                 angle += 360f / RaysToCast;
                 var rotate = Quaternion.Euler(0, 0, angle);
-                vector = rotate * vector;
+                vector = rotate * Velocity.normalized;
             }
 
             return raycastHits.ToArray();
@@ -165,8 +168,9 @@ namespace Assets.Scripts.Animals
         protected Vector3 GetObstacleAvoidanceVelocity(Transform[] obstacles)
         {
             var vectorSummarized = new Vector3();
-            vectorSummarized = obstacles.Aggregate(vectorSummarized, (current, obstacle) => current + obstacle.position);
-            var desiredVelocity = -((vectorSummarized / obstacles.Length).normalized * WanderVelocityLimit);
+            vectorSummarized = obstacles.Aggregate(vectorSummarized, (current, obstacle) => current + (obstacle.position - transform.position));
+            var desiredVelocity = (-vectorSummarized / obstacles.Length).normalized * WanderVelocityLimit;
+            Debug.DrawRay(transform.position, desiredVelocity, Color.blue);
             return desiredVelocity;
         }
     }

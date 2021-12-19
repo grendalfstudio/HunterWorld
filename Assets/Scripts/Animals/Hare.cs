@@ -31,7 +31,9 @@ namespace Assets.Scripts.Animals
             if (!GetSeenObstacles(Velocity, out var obstacles)) 
                 return desiredVelocity;
             var avoidanceVelocity = GetObstacleAvoidanceVelocity(obstacles);
-            desiredVelocity = (desiredVelocity + avoidanceVelocity * 2) / 2;
+            Debug.DrawRay(transform.position, desiredVelocity, Color.yellow);
+            desiredVelocity = (desiredVelocity + avoidanceVelocity * avoidanceWeight) / 2;
+            Debug.DrawRay(transform.position, desiredVelocity, Color.red);
 
             return desiredVelocity;
         }

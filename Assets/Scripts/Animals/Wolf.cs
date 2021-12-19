@@ -13,6 +13,8 @@ namespace Assets.Scripts.Animals
         private bool _hasTarget = false;
         private Transform _target;
         private float _secondsWithoutTarget;
+        private bool _caughtTarget = false;
+        private float _waitingTime = 0;
 
         [SerializeField, Range(15, 90)] private float canLiveWithoutTargetSeconds = 30;
 
@@ -31,6 +33,11 @@ namespace Assets.Scripts.Animals
                 _hasTarget = false;
             if (_secondsWithoutTarget > canLiveWithoutTargetSeconds)
                 transform.root.gameObject.GetComponent<AnimalsController>().KillTheAnimal(this.gameObject);
+            if (_caughtTarget && _waitingTime < 2)
+            {
+                _waitingTime += Time.deltaTime;
+                return;
+            }
             ApplySteeringForce();
             ApplyForces();
         }
@@ -64,23 +71,21 @@ namespace Assets.Scripts.Animals
             if (!GetSeenObstacles(Velocity, out var obstacles))
                 return desiredVelocity;
             var avoidanceVelocity = GetObstacleAvoidanceVelocity(obstacles);
-            desiredVelocity = (desiredVelocity + avoidanceVelocity * 2) / 2;
+            Debug.DrawRay(transform.position, desiredVelocity, Color.yellow);
+            desiredVelocity = (desiredVelocity + avoidanceVelocity * avoidanceWeight) / 2;
+            Debug.DrawRay(transform.position, desiredVelocity, Color.red);
 
             return desiredVelocity;
         }
 
-        //not working
-        private void OnCollisionEnter2D(Collision2D col)
-        {
-            if (_hasTarget && col.gameObject == _target.gameObject)
-                Debug.Log($"{name} hit {col.gameObject.name}");
-        }
-
-        //also not working
         private void OnTriggerEnter2D(Collider2D col)
         {
             if (_hasTarget && col.gameObject == _target.gameObject)
-                Debug.Log($"{name} hit {col.gameObject.name}");
+            {
+                _caughtTarget = true;
+                _waitingTime = 0;
+            }
+                
         }
     }
 }

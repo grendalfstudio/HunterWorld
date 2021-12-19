@@ -15,7 +15,7 @@ public class Body : MonoBehaviour
     // Start is called before the first frame update
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.tag.Equals("Obstacle") && IsOutsideTheMap(col.transform))
+        if (col.tag.Equals("Wall"))
         {
             controller.KillTheAnimal(transform.gameObject);
         }

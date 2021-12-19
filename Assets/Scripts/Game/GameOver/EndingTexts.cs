@@ -12,8 +12,13 @@ namespace Assets.Scripts.Game
 
         private int activeTextIndex = 0;
 
-        public void PlayTexts()
+        public void PlayTexts(bool isWait = true)
         {
+            if (!isWait)
+            {
+                PlayNextText();
+                return;
+            }
             Invoke(nameof(PlayNextText), 20);
         }
 

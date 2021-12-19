@@ -17,7 +17,7 @@ namespace Assets.Scripts.Player
             {
                 OnPlayerDied?.Invoke();
             }
-            if (col.tag.Equals("Obstacle") && IsOutsideTheMap(col.transform))
+            if (col.tag.Equals("Wall"))
             {
                 OnPlayerDied?.Invoke();
             }

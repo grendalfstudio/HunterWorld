@@ -13,7 +13,7 @@ namespace Assets.Scripts.Animals
         {
             if (!targets.Any()) return Vector3.zero;
             var vectorSummarized = new Vector3();
-            vectorSummarized = targets.Aggregate(vectorSummarized, (current, transform) => current + transform.position);
+            vectorSummarized = targets.Aggregate(vectorSummarized, (current, transform) => current + transform.position - Animal.transform.position);
             var desiredVelocity = vectorSummarized / targets.Length;
             return -(desiredVelocity.normalized * Animal.RunVelocityLimit);
         }

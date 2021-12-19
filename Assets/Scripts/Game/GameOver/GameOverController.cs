@@ -101,7 +101,7 @@ namespace Assets.Scripts.Game
             endingVideoPlayer.clip = endingClip;
             endingVideoPlayer.Play();
             gameFinished = true;
-            texts.PlayTexts();
+            texts.PlayTexts(false);
             Invoke(nameof(OnEndingFinished), (float)endingVideoPlayer.length);
         }
     

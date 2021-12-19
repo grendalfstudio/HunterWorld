@@ -101,17 +101,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mass: 6
   wanderVelocityLimit: 2
-  runVelocityLimit: 5
-  steeringForceLimit: 2.59
+  runVelocityLimit: 6
+  steeringForceLimit: 10
   wanderPointDistance: 2
   wanderRotateAngle: 15
-  viewRadius: 3.98
+  viewRadius: 5
   obstacleAvoidanceRadius: 3.01
   collider2d:
   - {fileID: 4322572377133344323}
   - {fileID: 6050332118043762600}
-  canLiveWithoutTargetSeconds: 15
+  avoidanceWeight: 10
+  canLiveWithoutTargetSeconds: 60
   arrivalRange: 4.33
+  chaseRange: 8
 --- !u!58 &4322572377133344323
 CircleCollider2D:
   m_ObjectHideFlags: 0
