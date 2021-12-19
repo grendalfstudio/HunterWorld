@@ -44,7 +44,7 @@ namespace Assets.Scripts.Player
             
             BulletsCount--;
             OnBulletsCountChanged?.Invoke();
-            AudioManager.Instance.Play(shootSound);
+            AudioManager.Instance.Play(shootSound, transform.position);
 
             var direction = aim.transform.position - gun.transform.position;
             GameObject hitObj;

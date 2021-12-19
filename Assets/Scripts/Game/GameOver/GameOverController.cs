@@ -53,7 +53,7 @@ namespace Assets.Scripts.Game
         {
             Destroy(player);
             Instantiate(diedPlayerPrefab, player.transform.position, Quaternion.identity);
-            AudioManager.Instance.Play(playerDied);
+            AudioManager.Instance.Play(playerDied, player.transform.position);
             AudioManager.Instance.StopMusic();
             Invoke(nameof(PlayGameOver), 5);
         }

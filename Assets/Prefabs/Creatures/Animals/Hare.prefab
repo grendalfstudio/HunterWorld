@@ -102,7 +102,7 @@ MonoBehaviour:
   mass: 2
   wanderVelocityLimit: 1.55
   runVelocityLimit: 6
-  steeringForceLimit: 6
+  steeringForceLimit: 4
   wanderPointDistance: 1
   wanderRotateAngle: 15
   viewRadius: 2

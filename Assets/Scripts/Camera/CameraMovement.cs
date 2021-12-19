@@ -10,6 +10,8 @@ namespace Assets.Scripts.Camera
     {
         [SerializeField] private PlayerMovement target;
         [SerializeField] private Vector3 offset;
+        [SerializeField] private UnityEngine.Camera camera;
+        [SerializeField] private float defaultSize;
 
         void Start()
         {
@@ -27,9 +29,14 @@ namespace Assets.Scripts.Camera
             transform.position = new Vector3 (targetPosition.x + offset.x, targetPosition.y + offset.y, offset.z);
         }
         
-        /*void FixedUpdate() 
+        void Update() 
         {
-            transform.position = new Vector3 (target.position.x + offset.x, target.position.y + offset.y, offset.z);
-        }*/
+            if (Input.GetKeyDown(KeyCode.M))
+            {
+                camera.orthographicSize = camera.orthographicSize > defaultSize
+                    ? defaultSize 
+                    : defaultSize * 4;
+            }
+        }
     }
 }

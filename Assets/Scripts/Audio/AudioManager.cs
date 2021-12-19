@@ -38,6 +38,12 @@ namespace Assets.Scripts.Audio
             Instantiate(effectSource.prefab);
         }
 
+        public void Play(AudioClip clip, Vector3 position)
+        {
+            effectSource.source.clip = clip;
+            Instantiate(effectSource.prefab, position, Quaternion.identity);
+        }
+
         // Play a single clip through the music source.
         public void PlayMusic(AudioClip clip)
         {

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Audio;
 using Assets.Scripts.LoadingScene;
 using UnityEngine;
 using Random = System.Random;
@@ -14,6 +15,7 @@ namespace Assets.Scripts.Game
         [SerializeField] private int deersRadius;
         [SerializeField] private AnimalsSpawner spawner;
         [SerializeField] private List<GameObject> deadPrefabs;
+        [SerializeField] private List<AudioClip> deadSounds;
 
         public int HaresCount { get; set; }
         public int WolfsCount { get; set; }
@@ -39,21 +41,29 @@ namespace Assets.Scripts.Game
                 return;
             }
 
+            var animalId = 0;
             switch (animal.tag)
             {
                 case "Hare":
                     HaresCount--;
-                    if(isMurdered) Instantiate(deadPrefabs[0], animal.transform.position, animal.transform.rotation);
+                    animalId = 0;
                     break;
                 case "Deer":
                     DeersCount--;
-                    if(isMurdered) Instantiate(deadPrefabs[1], animal.transform.position, animal.transform.rotation);
+                    animalId = 1;
                     break;
                 case "Wolf":
                     WolfsCount--;
-                    if(isMurdered) Instantiate(deadPrefabs[2], animal.transform.position, animal.transform.rotation);
+                    animalId = 2;
                     break;
             }
+
+            AudioManager.Instance.Play(deadSounds[animalId], animal.transform.position);
+            if (isMurdered)
+            {
+                Instantiate(deadPrefabs[animalId], animal.transform.position, animal.transform.rotation);
+            }
+
             
             OnAnimalCountsUpdated?.Invoke();
             
