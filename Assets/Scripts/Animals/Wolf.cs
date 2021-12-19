@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Animals;
+using Assets.Scripts.Game;
 using Common;
 using UnityEngine;
 
@@ -13,14 +14,11 @@ namespace Assets.Scripts.Animals
         private Transform _target;
         private float _secondsWithoutTarget;
 
-        [SerializeField, Range(15, 90)]
-        private float canLiveWithoutTargetSeconds = 30;
+        [SerializeField, Range(15, 90)] private float canLiveWithoutTargetSeconds = 30;
 
-        [SerializeField, Range(1, 5)] 
-        private float arrivalRange = 2;
+        [SerializeField, Range(1, 5)] private float arrivalRange = 2;
 
-        [SerializeField, Range(2, 15)] 
-        private float chaseRange = 8;
+        [SerializeField, Range(2, 15)] private float chaseRange = 8;
 
         public Wolf()
         {
@@ -31,8 +29,8 @@ namespace Assets.Scripts.Animals
         {
             if (_target == null)
                 _hasTarget = false;
-            if (_secondsWithoutTarget > canLiveWithoutTargetSeconds) 
-                Destroy(gameObject);
+            if (_secondsWithoutTarget > canLiveWithoutTargetSeconds)
+                transform.root.gameObject.GetComponent<AnimalsController>().KillTheAnimal(this.gameObject);
             ApplySteeringForce();
             ApplyForces();
         }
@@ -42,7 +40,7 @@ namespace Assets.Scripts.Animals
             if (!_hasTarget)
             {
                 _secondsWithoutTarget += Time.deltaTime;
-                var creatures = GetSeenCreatures(new HashSet<string>(){"Wolf"});
+                var creatures = GetSeenCreatures(new HashSet<string>() { "Wolf" });
                 if (creatures.Any())
                 {
                     _desiredVelocityProvider = new SeekVelocityProvider(this, arrivalRange);
@@ -57,10 +55,10 @@ namespace Assets.Scripts.Animals
                 }
             }
 
-            if (_hasTarget && Vector3.Distance(transform.position, _target.position) > chaseRange) 
+            if (_hasTarget && Vector3.Distance(transform.position, _target.position) > chaseRange)
                 _hasTarget = false;
             var desiredVelocity = _desiredVelocityProvider.GetDesiredVelocity(new[] { _target });
-            if (!GetSeenObstacles(Velocity, out var obstacles)) 
+            if (!GetSeenObstacles(Velocity, out var obstacles))
                 return desiredVelocity;
             var avoidanceVelocity = GetObstacleAvoidanceVelocity(obstacles);
             desiredVelocity = (desiredVelocity + avoidanceVelocity * 2) / 2;
@@ -71,14 +69,14 @@ namespace Assets.Scripts.Animals
         //not working
         private void OnCollisionEnter2D(Collision2D col)
         {
-            if(col.gameObject == _target.gameObject)
+            if (_hasTarget && col.gameObject == _target.gameObject)
                 Debug.Log($"{name} hit {col.gameObject.name}");
         }
 
         //also not working
         private void OnTriggerEnter2D(Collider2D col)
         {
-            if(col.gameObject == _target.gameObject)
+            if (_hasTarget && col.gameObject == _target.gameObject)
                 Debug.Log($"{name} hit {col.gameObject.name}");
         }
     }

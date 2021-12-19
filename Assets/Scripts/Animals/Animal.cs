@@ -40,7 +40,7 @@ namespace Assets.Scripts.Animals
         private float obstacleAvoidanceRadius = 2;
 
         [SerializeField]
-        private Collider2D collider2d;
+        private List<Collider2D> collider2d;
     
         public float WanderVelocityLimit => wanderVelocityLimit;
 
@@ -54,7 +54,7 @@ namespace Assets.Scripts.Animals
 
         public float ViewRadius => viewRadius;
 
-        public Collider2D Collider2D => collider2d;
+        public List<Collider2D> Collider2D => collider2d;
 
         public float SteeringForceLimit => steeringForceLimit;
 
@@ -105,9 +105,15 @@ namespace Assets.Scripts.Animals
             {
                 var rotate = Quaternion.Euler(0, 0, angle);
                 vector = rotate * vector;
-                Collider2D.enabled = false;
+                foreach (var col in Collider2D)
+                {
+                    col.enabled = false;
+                }
                 var hit = Physics2D.Raycast(transform.position, vector, obstacleAvoidanceRadius);
-                Collider2D.enabled = true;
+                foreach (var col in Collider2D)
+                {
+                    col.enabled = true;
+                }
                 if (hit.collider != null && hit.transform.gameObject.tag.Equals("Obstacle") && !raycastHits.Contains(hit.transform))
                 {
                     raycastHits.AddLast(hit.transform);
@@ -135,9 +141,15 @@ namespace Assets.Scripts.Animals
 
             for (var i = 0; i < RaysToCast; i++)
             {
-                Collider2D.enabled = false;
+                foreach (var col in Collider2D)
+                {
+                    col.enabled = false;
+                }
                 var hit = Physics2D.Raycast(transform.position, vector, viewRadius);
-                Collider2D.enabled = true;
+                foreach (var col in Collider2D)
+                {
+                    col.enabled = true;
+                }
                 if (hit.collider != null && !tagsToFilter.Contains(hit.transform.gameObject.tag) && !raycastHits.Contains(hit.transform))
                 {
                     raycastHits.AddLast(hit.transform);

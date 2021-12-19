@@ -6,12 +6,23 @@ using UnityEngine;
 
 public class Body : MonoBehaviour
 {
+    private AnimalsController controller;
+    private void Awake()
+    {
+        controller = transform.root.gameObject.GetComponent<AnimalsController>();
+    }
+
     // Start is called before the first frame update
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (col.tag.Equals("Obstacle") && IsOutsideTheMap(col.transform))
         {
-            transform.root.gameObject.GetComponent<AnimalsController>().KillTheAnimal(transform.parent.gameObject);
+            controller.KillTheAnimal(transform.gameObject);
+        }
+
+        if (!gameObject.tag.Equals("Wolf") && col.tag.Equals("Wolf"))
+        {
+            controller.KillTheAnimal(transform.gameObject, true);
         }
     }
         

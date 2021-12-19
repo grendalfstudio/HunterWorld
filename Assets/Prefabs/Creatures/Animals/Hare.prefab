@@ -11,7 +11,11 @@ GameObject:
   - component: {fileID: 7713218424813990107}
   - component: {fileID: 2854555219192149925}
   - component: {fileID: 3314771124087023352}
-  m_Layer: 0
+  - component: {fileID: 8751190087805238186}
+  - component: {fileID: 8197608096319590873}
+  - component: {fileID: 4348391633129660059}
+  - component: {fileID: 8020406956751851316}
+  m_Layer: 3
   m_Name: Hare
   m_TagString: Hare
   m_Icon: {fileID: 0}
@@ -26,10 +30,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2580351872456862596}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.29, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 7470841418532377583}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -98,73 +101,42 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mass: 2
   wanderVelocityLimit: 1.55
-  runVelocityLimit: 7
-  steeringForceLimit: 3.02
-  wanderPointDistance: 2
-  wanderRotateAngle: 10
+  runVelocityLimit: 6
+  steeringForceLimit: 6
+  wanderPointDistance: 1
+  wanderRotateAngle: 15
   viewRadius: 2
   obstacleAvoidanceRadius: 5.04
-  collider2d: {fileID: 8416976801864065575}
---- !u!1 &3533963636616140502
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7470841418532377583}
-  - component: {fileID: 8416976801864065575}
-  - component: {fileID: 6998444098109245520}
-  - component: {fileID: 2048868827803965312}
-  m_Layer: 0
-  m_Name: Body
-  m_TagString: Hare
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7470841418532377583
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3533963636616140502}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.075, y: -1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 7713218424813990107}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!70 &8416976801864065575
+  collider2d:
+  - {fileID: 8751190087805238186}
+  - {fileID: 8020406956751851316}
+--- !u!70 &8751190087805238186
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3533963636616140502}
+  m_GameObject: {fileID: 2580351872456862596}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.06, y: -0.99}
   m_Size: {x: 1.55, y: 2.1}
   m_Direction: 0
---- !u!50 &6998444098109245520
+--- !u!50 &8197608096319590873
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3533963636616140502}
-  m_BodyType: 1
+  m_GameObject: {fileID: 2580351872456862596}
+  m_BodyType: 0
   m_Simulated: 1
-  m_UseFullKinematicContacts: 1
+  m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
@@ -175,15 +147,31 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!114 &2048868827803965312
+--- !u!114 &4348391633129660059
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3533963636616140502}
+  m_GameObject: {fileID: 2580351872456862596}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 70f70cbc7940fcb46b56b3014cda0aed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!70 &8020406956751851316
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2580351872456862596}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.06, y: -0.99}
+  m_Size: {x: 1.07, y: 1.32}
+  m_Direction: 0
