@@ -55,6 +55,9 @@ namespace Assets.Scripts.Animals
                 }
             }
 
+            //wolf dies not of starvation, but of feeling himself useless,
+            //so if he at least found the target, set the counter to zero
+            _secondsWithoutTarget = 0;
             if (_hasTarget && Vector3.Distance(transform.position, _target.position) > chaseRange)
                 _hasTarget = false;
             var desiredVelocity = _desiredVelocityProvider.GetDesiredVelocity(new[] { _target });
