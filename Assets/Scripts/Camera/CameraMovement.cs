@@ -31,6 +31,8 @@ namespace Assets.Scripts.Camera
         
         void Update() 
         {
+            if (Time.timeScale == 0) return;
+            
             if (Input.GetKeyDown(KeyCode.M))
             {
                 camera.orthographicSize = camera.orthographicSize > defaultSize

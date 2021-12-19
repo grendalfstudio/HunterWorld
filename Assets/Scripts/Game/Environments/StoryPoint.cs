@@ -18,6 +18,8 @@ public class StoryPoint : MonoBehaviour
 
     private void Update()
     {
+        if (Time.timeScale == 0) return;
+        
         if (isTriggered && !scroll.transform.parent.gameObject.activeSelf && Input.GetKeyDown(expectedKey))
         {
             if (PlayerProfile.Instance.GameTexts.Texts.ContainsKey(textKey))

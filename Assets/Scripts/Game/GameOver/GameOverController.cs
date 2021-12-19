@@ -23,8 +23,11 @@ namespace Assets.Scripts.Game
         [SerializeField] private GameObject diedPlayerPrefab;
         [SerializeField] private AudioClip playerDied;
         [SerializeField] private EndingTexts texts;
+        [SerializeField] private GameObject restartGameCanvas;
+        [SerializeField] private SceneLoader sceneLoader;
     
         private bool gameFinished = false;
+        private bool isPlayerDied = false;
         
         // Start is called before the first frame update
         void Awake()
@@ -34,6 +37,22 @@ namespace Assets.Scripts.Game
     
         private void Update()
         {
+            if (Time.timeScale == 0) return;
+
+            if (isPlayerDied)
+            {
+                if (Input.GetKeyDown(KeyCode.R))
+                {
+                    isPlayerDied = false;
+                    sceneLoader.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                }
+                if (Input.GetKeyDown(KeyCode.Return))
+                {
+                    isPlayerDied = false;
+                    PlayGameOver();
+                }
+            }
+            
             if (gameFinished)
             {
                 if (Input.GetKeyDown(KeyCode.Escape))
@@ -55,13 +74,15 @@ namespace Assets.Scripts.Game
             Instantiate(diedPlayerPrefab, player.transform.position, Quaternion.identity);
             AudioManager.Instance.Play(playerDied, player.transform.position);
             AudioManager.Instance.StopMusic();
-            Invoke(nameof(PlayGameOver), 5);
+            isPlayerDied = true;
+            restartGameCanvas.SetActive(true);
         }
     
         private void PlayGameOver()
         {
             Destroy(creatures);
             Destroy(gameMenu);
+            restartGameCanvas.SetActive(false);
             if (gameOverClip != null)
             {
                 endingVideoPlayer.clip = gameOverClip;

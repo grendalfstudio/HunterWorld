@@ -13,11 +13,15 @@ namespace Assets.Scripts.Player
 
         void Update()
         {
+            if (Time.timeScale == 0) return;
+            
             ComputeViewDirection();
         }
 
         private void FixedUpdate()
         {
+            if (Time.timeScale == 0) return;
+            
             MovePlayer();
         }
 
