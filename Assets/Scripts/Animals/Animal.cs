@@ -154,7 +154,7 @@ namespace Assets.Scripts.Animals
         {
             var vectorSummarized = new Vector3();
             vectorSummarized = obstacles.Aggregate(vectorSummarized, (current, obstacle) => current + obstacle.position);
-            var desiredVelocity = -((Velocity - (vectorSummarized / obstacles.Length)).normalized * WanderVelocityLimit);
+            var desiredVelocity = -((vectorSummarized / obstacles.Length).normalized * WanderVelocityLimit);
             return desiredVelocity;
         }
     }

@@ -187,7 +187,7 @@ MonoBehaviour:
   viewRadius: 4.03
   obstacleAvoidanceRadius: 3.84
   collider2d: {fileID: 2219268185449924715}
-  dangerSenseDistance: 5
+  dangerSenseDistance: 6.04
   cohesionWeight: 1.2
   separationWeight: 1
   alignmentWeight: 0.69
