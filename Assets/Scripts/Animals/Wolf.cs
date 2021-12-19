@@ -1,80 +1,85 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Animals;
 using Common;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
-public class Wolf : Animal
+namespace Assets.Scripts.Animals
 {
-    private DesiredVelocityProvider _desiredVelocityProvider;
-    private bool _hasTarget = false;
-    private Transform _target;
-    private float _secondsWithoutTarget;
-
-    [SerializeField, Range(15, 90)]
-    private float canLiveWithoutTargetSeconds = 30;
-
-    [SerializeField, Range(1, 5)] 
-    private float arrivalRange = 2;
-
-    public Wolf()
+    public class Wolf : Animal
     {
-        _desiredVelocityProvider = new WanderVelocityProvider(this);
-    }
+        private DesiredVelocityProvider _desiredVelocityProvider;
+        private bool _hasTarget = false;
+        private Transform _target;
+        private float _secondsWithoutTarget;
 
-    private void Update()
-    {
-        if (_target == null)
-            _hasTarget = false;
-        if (_secondsWithoutTarget > canLiveWithoutTargetSeconds) 
-            Destroy(this.gameObject);
-        ApplySteeringForce();
-        ApplyForces();
-    }
+        [SerializeField, Range(15, 90)]
+        private float canLiveWithoutTargetSeconds = 30;
 
-    protected override Vector3 GetDesiredVelocity()
-    {
-        if (!_hasTarget)
+        [SerializeField, Range(1, 5)] 
+        private float arrivalRange = 2;
+
+        [SerializeField, Range(2, 15)] 
+        private float chaseRange = 8;
+
+        public Wolf()
         {
-            _secondsWithoutTarget += Time.deltaTime;
-            var creatures = GetSeenCreatures(new HashSet<string>(){"Wolf"});
-            if (creatures.Any())
-            {
-                _desiredVelocityProvider = new SeekVelocityProvider(this, arrivalRange);
-                _target = creatures.GetRandomElement();
-                IsRunning = true;
-                _hasTarget = true;
-            }
-            else if (!creatures.Any() && IsRunning)
-            {
-                _desiredVelocityProvider = new WanderVelocityProvider(this);
-                IsRunning = false;
-            }
+            _desiredVelocityProvider = new WanderVelocityProvider(this);
         }
 
-        var desiredVelocity = _desiredVelocityProvider.GetDesiredVelocity(new[] { _target });
-        if (!GetSeenObstacles(Velocity, out var obstacles)) 
+        private void Update()
+        {
+            if (_target == null)
+                _hasTarget = false;
+            if (_secondsWithoutTarget > canLiveWithoutTargetSeconds) 
+                Destroy(gameObject);
+            ApplySteeringForce();
+            ApplyForces();
+        }
+
+        protected override Vector3 GetDesiredVelocity()
+        {
+            if (!_hasTarget)
+            {
+                _secondsWithoutTarget += Time.deltaTime;
+                var creatures = GetSeenCreatures(new HashSet<string>(){"Wolf"});
+                if (creatures.Any())
+                {
+                    _desiredVelocityProvider = new SeekVelocityProvider(this, arrivalRange);
+                    _target = creatures.GetRandomElement();
+                    IsRunning = true;
+                    _hasTarget = true;
+                }
+                else if (!creatures.Any() && IsRunning)
+                {
+                    _desiredVelocityProvider = new WanderVelocityProvider(this);
+                    IsRunning = false;
+                }
+            }
+
+            if (_hasTarget && Vector3.Distance(transform.position, _target.position) > chaseRange) 
+                _hasTarget = false;
+            var desiredVelocity = _desiredVelocityProvider.GetDesiredVelocity(new[] { _target });
+            if (!GetSeenObstacles(Velocity, out var obstacles)) 
+                return desiredVelocity;
+            var avoidanceVelocity = GetObstacleAvoidanceVelocity(obstacles);
+            desiredVelocity = (desiredVelocity + avoidanceVelocity * 2) / 2;
+
             return desiredVelocity;
-        var avoidanceVelocity = GetObstacleAvoidanceVelocity(obstacles);
-        desiredVelocity = (desiredVelocity + avoidanceVelocity * 2) / 2;
+        }
 
-        return desiredVelocity;
-    }
+        //not working
+        private void OnCollisionEnter2D(Collision2D col)
+        {
+            if(col.gameObject == _target.gameObject)
+                Debug.Log($"{name} hit {col.gameObject.name}");
+        }
 
-    //not working
-    private void OnCollisionEnter2D(Collision2D col)
-    {
-        if(col.gameObject == _target.gameObject)
-            Debug.Log($"{name} hit {col.gameObject.name}");
-    }
-
-    //also not working
-    private void OnTriggerEnter2D(Collider2D col)
-    {
-        if(col.gameObject == _target.gameObject)
-            Debug.Log($"{name} hit {col.gameObject.name}");
+        //also not working
+        private void OnTriggerEnter2D(Collider2D col)
+        {
+            if(col.gameObject == _target.gameObject)
+                Debug.Log($"{name} hit {col.gameObject.name}");
+        }
     }
 }
