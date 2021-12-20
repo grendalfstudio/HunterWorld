@@ -26,6 +26,7 @@ namespace Assets.Scripts.Game
         [SerializeField] private GameObject restartGameCanvas;
         [SerializeField] private SceneLoader sceneLoader;
         [SerializeField] private GameObject background;
+        [SerializeField] private StoryEndManager storyEndManager;
     
         private bool gameFinished = false;
         private bool isPlayerDied = false;
@@ -67,6 +68,20 @@ namespace Assets.Scripts.Game
         private void AddListeners()
         {
             playerLife.OnPlayerDied += OnPlayerDied;
+            storyEndManager.OnStoryEnded += OnStoryEnded;
+        }
+
+        private void RemoveListeners()
+        {
+            playerLife.OnPlayerDied -= OnPlayerDied;
+            storyEndManager.OnStoryEnded -= OnStoryEnded;
+        }
+
+        public void OnStoryEnded()
+        {
+            Destroy(player);
+            AudioManager.Instance.StopMusic();
+            PlayGameOver();
         }
     
         private void OnPlayerDied()
@@ -85,6 +100,7 @@ namespace Assets.Scripts.Game
             Destroy(gameMenu);
             Destroy(background);
             restartGameCanvas.SetActive(false);
+            RemoveListeners();
             if (gameOverClip != null)
             {
                 endingVideoPlayer.clip = gameOverClip;

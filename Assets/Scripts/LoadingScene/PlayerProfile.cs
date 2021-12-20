@@ -42,7 +42,16 @@ namespace Assets.Scripts.LoadingScene
         {
             if (!PlayerPrefs.HasKey(DataKey))
             {
-                return new GameSettings();
+                return new GameSettings
+                {
+                    BulletsCount = 25,
+                    DeersGroupsCount = 4,
+                    DeersOnGroupMinCount = 3,
+                    DeersOnGroupMaxCount = 7,
+                    HaresCount = 16,
+                    PlayerName = "Player",
+                    WolfsCount = 8
+                };
             }
 
             var data = PlayerPrefs.GetString(DataKey);

@@ -14,6 +14,7 @@ namespace Assets.Scripts.MainMenu
         [SerializeField] private GameObject settingsPanel;
         [SerializeField] private SceneLoader sceneLoader;
         [SerializeField] private Button playButton;
+        [SerializeField] private Button exitButton;
         [SerializeField] private TMP_InputField playerNameIf;
         [SerializeField] private TMP_InputField bulletsIf;
         [SerializeField] private TMP_InputField wolfsIf;
@@ -47,6 +48,7 @@ namespace Assets.Scripts.MainMenu
         private void AddListeners()
         {
             playButton.onClick.AddListener(OnPlayClicked);
+            exitButton.onClick.AddListener(OnExitClicked);
             playerNameIf.onEndEdit.AddListener(OnNameChanged);
             bulletsIf.onEndEdit.AddListener(OnBulletsChanged);
             wolfsIf.onEndEdit.AddListener(OnWolfsChanged);
@@ -61,6 +63,7 @@ namespace Assets.Scripts.MainMenu
         private void RemoveListeners()
         {
             playButton.onClick.RemoveListener(OnPlayClicked);
+            exitButton.onClick.AddListener(OnExitClicked);
             playerNameIf.onEndEdit.RemoveListener(OnNameChanged);
             bulletsIf.onEndEdit.RemoveListener(OnBulletsChanged);
             wolfsIf.onEndEdit.RemoveListener(OnWolfsChanged);
@@ -131,6 +134,12 @@ namespace Assets.Scripts.MainMenu
             sceneLoader.gameObject.SetActive(true);
             Cursor.visible = false;
             sceneLoader.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+
+        private void OnExitClicked()
+        {
+            PlayerPrefs.Save();
+            Application.Quit();
         }
     }
 }

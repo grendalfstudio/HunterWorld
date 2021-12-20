@@ -16,6 +16,7 @@ namespace Assets.Scripts.Game
         [SerializeField] private AnimalsSpawner spawner;
         [SerializeField] private List<GameObject> deadPrefabs;
         [SerializeField] private List<AudioClip> deadSounds;
+        [SerializeField] private int respawnTriggerCount = 1;
 
         public int HaresCount { get; set; }
         public int WolfsCount { get; set; }
@@ -69,6 +70,8 @@ namespace Assets.Scripts.Game
             
             animals.Remove(animal);
             Destroy(animal);
+            
+            RespawnAnimals();
         }
 
         private void SpawnAnimals()
@@ -80,24 +83,26 @@ namespace Assets.Scripts.Game
 
         private void SpawnHares()
         {
-            for (int i = 0; i < Settings.HaresCount; i++)
+            for (int i = HaresCount; i < Settings.HaresCount; i++)
             {
                 var xCoord = rnd.Next(-fieldSizeX, fieldSizeX);
                 var yCoord = rnd.Next(-fieldSizeY, fieldSizeY);
                 animals.Add(spawner.SpawnHare(new Vector3(xCoord, yCoord, 0)));
                 HaresCount++;
             }
+            OnAnimalCountsUpdated?.Invoke();
         }
 
         private void SpawnWolfs()
         {
-            for (int i = 0; i < Settings.WolfsCount; i++)
+            for (int i = WolfsCount; i < Settings.WolfsCount; i++)
             {
                 var xCoord = rnd.Next(-fieldSizeX, fieldSizeX);
                 var yCoord = rnd.Next(-fieldSizeY, fieldSizeY);
                 animals.Add(spawner.SpawnWolf(new Vector3(xCoord, yCoord, 0)));
                 WolfsCount++;
             }
+            OnAnimalCountsUpdated?.Invoke();
         }
 
         private void SpawnDeersGroups()
@@ -112,6 +117,7 @@ namespace Assets.Scripts.Game
                 
                 SpawnDeersOnGroup(newGroup);
             }
+            OnAnimalCountsUpdated?.Invoke();
         }
 
         private void SpawnDeersOnGroup(GameObject deersGroup)
@@ -124,6 +130,14 @@ namespace Assets.Scripts.Game
                 animals.Add(spawner.SpawnDeerOnGroup(deersGroup,new Vector3(xOffset, yOffset, 0)));
                 DeersCount++;
             }
+            OnAnimalCountsUpdated?.Invoke();
+        }
+
+        private void RespawnAnimals()
+        {
+            if (HaresCount <= respawnTriggerCount) SpawnHares();
+            if (DeersCount <= respawnTriggerCount) SpawnDeersGroups();
+            if (WolfsCount <= respawnTriggerCount) SpawnWolfs();
         }
     }
 }

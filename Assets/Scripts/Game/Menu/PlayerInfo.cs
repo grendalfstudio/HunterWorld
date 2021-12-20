@@ -12,6 +12,9 @@ namespace Assets.Scripts.Game
     {
         [SerializeField] private TextMeshProUGUI playerName;
         [SerializeField] private TextMeshProUGUI bulletsCount;
+        [SerializeField] private TextMeshProUGUI haresCount;
+        [SerializeField] private TextMeshProUGUI deersCount;
+        [SerializeField] private TextMeshProUGUI wolfsCount;
         [SerializeField] private PlayerShooting shootStats;
         
         // Start is called before the first frame update
@@ -19,6 +22,9 @@ namespace Assets.Scripts.Game
         {
             playerName.text = PlayerProfile.Instance.GameData.PlayerName;
             bulletsCount.text = shootStats.BulletsCount.ToString();
+            haresCount.text = shootStats.killedAnimals["Hare"].ToString();
+            deersCount.text = shootStats.killedAnimals["Deer"].ToString();
+            wolfsCount.text = shootStats.killedAnimals["Wolf"].ToString();
             AddListeners();
         }
 
@@ -35,6 +41,9 @@ namespace Assets.Scripts.Game
         private void UpdateStats()
         {
             bulletsCount.text = shootStats.BulletsCount.ToString();
+            haresCount.text = shootStats.killedAnimals["Hare"].ToString();
+            deersCount.text = shootStats.killedAnimals["Deer"].ToString();
+            wolfsCount.text = shootStats.killedAnimals["Wolf"].ToString();
         }
 
         private void OnDestroy()

@@ -75,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1594845781
   m_SortingLayer: 1
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: f08282143a63bf242a8363a59ebacdbd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -111,7 +111,7 @@ MonoBehaviour:
   - {fileID: 4322572377133344323}
   - {fileID: 6050332118043762600}
   avoidanceWeight: 10
-  canLiveWithoutTargetSeconds: 60
+  canLiveWithoutTargetSeconds: 25
   arrivalRange: 4.33
   chaseRange: 8
 --- !u!58 &4322572377133344323

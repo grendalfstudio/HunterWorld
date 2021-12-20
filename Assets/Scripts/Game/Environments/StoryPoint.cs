@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Game;
 using Assets.Scripts.LoadingScene;
 using TMPro;
 using UnityEngine;
@@ -10,6 +11,7 @@ public class StoryPoint : MonoBehaviour
     [SerializeField] private TextMeshProUGUI scroll;
     [SerializeField] private string textKey;
     [SerializeField] private GameObject pressObj;
+    [SerializeField] private StoryEndManager storyEnd;
 
     private bool isTriggered = false;
     private bool isOpened = false;
@@ -43,6 +45,10 @@ public class StoryPoint : MonoBehaviour
                 isOpened = false;
                 scroll.transform.parent.gameObject.SetActive(false);
                 counter = 1;
+                if (storyEnd != null)
+                {
+                    storyEnd.EndStory();
+                }
             }
         }
     }
