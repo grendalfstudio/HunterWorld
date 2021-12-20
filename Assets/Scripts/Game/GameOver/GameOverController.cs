@@ -25,6 +25,7 @@ namespace Assets.Scripts.Game
         [SerializeField] private EndingTexts texts;
         [SerializeField] private GameObject restartGameCanvas;
         [SerializeField] private SceneLoader sceneLoader;
+        [SerializeField] private GameObject background;
     
         private bool gameFinished = false;
         private bool isPlayerDied = false;
@@ -82,6 +83,7 @@ namespace Assets.Scripts.Game
         {
             Destroy(creatures);
             Destroy(gameMenu);
+            Destroy(background);
             restartGameCanvas.SetActive(false);
             if (gameOverClip != null)
             {

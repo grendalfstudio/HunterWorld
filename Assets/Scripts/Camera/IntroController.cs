@@ -16,7 +16,12 @@ namespace Assets.Scripts.Camera
         void Start()
         {
             Cursor.visible = false;
-            if (!PlayerPrefs.HasKey("PlayIntro") || PlayerPrefs.GetInt("PlayIntro") != 0)
+            if (!PlayerPrefs.HasKey("PlayIntro"))
+            {
+                PlayerPrefs.SetInt("PlayIntro", 0);
+                PlayerPrefs.Save();
+            }
+            if (PlayerPrefs.GetInt("PlayIntro") != 0)
             {
                 PlayerPrefs.SetInt("PlayIntro", 0);
                 PlayerPrefs.Save();

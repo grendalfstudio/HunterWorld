@@ -9,7 +9,7 @@ namespace Assets.Scripts.LoadingScene
     public class PlayerProfile : MonoBehaviour
     {
         private const string DataKey = "GameData";
-        private const string TextsPath = "Resourses/GameTexts.json";
+        private const string TextsPath = "GameTexts.json";
         public GameSettings GameData { get; set; }
         public GameTexts GameTexts { get; set; }
         
@@ -51,7 +51,7 @@ namespace Assets.Scripts.LoadingScene
 
         public GameTexts LoadTexts()
         {
-            var sourse=new StreamReader(Application.dataPath+"/" + TextsPath);
+            var sourse=new StreamReader("./" + TextsPath);
             var fileContents=sourse.ReadToEnd();
             sourse.Close();
             return JsonConvert.DeserializeObject<GameTexts>(fileContents);
